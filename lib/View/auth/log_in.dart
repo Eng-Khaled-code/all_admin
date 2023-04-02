@@ -9,8 +9,9 @@ import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_selection_list.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../utilities/strings.dart';
 class LogIn extends StatefulWidget {
 
   @override
@@ -67,7 +68,7 @@ class _LogInState extends State<LogIn> {
            Container(),
        const SizedBox(height: 20,),InkWell(onTap:(){
             if(_userController.splachError!=null){
-              _userController.openMyHomePage(email: "",password: "",type: "load",userId:"$globalUserId",userType: "");
+              _userController.openMyHomePage(email: "",password: "",type: "load",userId:"${Strings.globalUserId}",userType: "");
             }
           },child: _userController.isLoading.value?Container(): CustomText(text:_userController.splachError==null? "إنتظر لحظة":(_userController.splachError!.value+" \n إضغط للتحديث"),maxLine: 4,))]),
     );
@@ -86,7 +87,8 @@ class _LogInState extends State<LogIn> {
           lable: "الإيميل",
           onSave: (value){
             _txtUsername=value;
-          },),
+          },
+        ),
         const SizedBox(height: 15.0),
         CustomTextField(
           initialValue: _txtPassword,
@@ -105,9 +107,11 @@ class _LogInState extends State<LogIn> {
             text: "تسجيل الدخول",
             onPress: (){
               _formKey.currentState!.save();
-              if(_formKey.currentState!.validate()){
-                _userController.openMyHomePage(email: _txtUsername,password:_txtPassword,type:"log_in",userId:"",userType:
-    userType=="عقارات"?"middleman":userType=="تسوق"?"ecommerce":userType=="اطباء"?"doctor":userType=="مسئول"?"admin":"course_admin");
+              if(_formKey.currentState!.validate())
+              {
+                String _userType=Strings.userType=="عقارات"?"middleman":Strings.userType=="تسوق"?"ecommerce":Strings.userType=="اطباء"?"doctor":Strings.userType=="مسئول"?"admin":"course_admin";
+                _userController.openMyHomePage(email: _txtUsername,password:_txtPassword,type:"log_in",userId:"",userType:_userType
+                );
             }
             },
             textColor: Colors.white),
@@ -143,8 +147,8 @@ class _LogInState extends State<LogIn> {
   }
 
   _userTypesList() {
-    return CustomSelectionList(list:userTypesList ,listType: "userType",onTap:  (String? text){
-    setState(()=> userType=text!);
+    return CustomSelectionList(list:Strings.userTypesList ,listType: "userType",onTap:  (String? text){
+    setState(()=> Strings.userType=text!);
     });
   }
 

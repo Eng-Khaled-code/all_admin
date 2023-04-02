@@ -7,7 +7,7 @@ import 'package:middleman_all/Controller/data/user_controller.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../utilities/strings.dart';
 import 'custom_dropdown_button.dart';
 import 'profile_constant.dart';
 
@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
    String? _userType;
   @override
   Widget build(BuildContext context) {
-  _userType=userInformation!.value.userType;
+  _userType=Strings.userInformation!.value.userType;
     return  Directionality(
       textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -40,13 +40,13 @@ class ProfilePage extends StatelessWidget {
                     _topUsernameWidget(),
                     _userType=="doctor"? _topAboutWidget():Container(),
                     CustomText(
-                      text: "${userInformation!.value.email}",
+                      text: "${Strings.userInformation!.value.email}",
                     ),
                     _userType!="full_access"? _rateWidget():Container(),
                     _userType!="full_access"?  _dataWidget():Container(),
                     _userType!="full_access"? _typeWidgets():Container(),
                      _phoneWidget(),
-                    userInformation!.value.userType=="doctor"?_workDaysWidget(context):Container(),
+                    Strings.userInformation!.value.userType=="doctor"?_workDaysWidget(context):Container(),
 
                   ],
                     ),
@@ -232,7 +232,7 @@ class ProfilePage extends StatelessWidget {
                   ?
               prfileLoadingWidget(Colors.white)
                   :
-              _nameAddressField(nameOrAddress: "username",value:userInformation!.value.userName! )
+              _nameAddressField(nameOrAddress: "username",value:Strings.userInformation!.value.userName! )
             ],
 
           ),
@@ -247,7 +247,7 @@ class ProfilePage extends StatelessWidget {
               prfileLoadingWidget(Colors.white)
 
                   :
-              _nameAddressField(nameOrAddress: "address",value: userInformation!.value.address! )
+              _nameAddressField(nameOrAddress: "address",value: Strings.userInformation!.value.address! )
             ],
 
           ),
@@ -261,7 +261,7 @@ class ProfilePage extends StatelessWidget {
               prfileLoadingWidget(Colors.white)
 
                   :
-              _nameAddressField(nameOrAddress: "about_doctor",value: userInformation!.value.aboutDoctor! )
+              _nameAddressField(nameOrAddress: "about_doctor",value: Strings.userInformation!.value.aboutDoctor! )
             ],
 
           )
@@ -296,9 +296,9 @@ class ProfilePage extends StatelessWidget {
           const Text("التقييم : "),
           const Text("5/"),
 
-          CustomText(text:userInformation!.value.ratingValue!,fontSize: 30,fontWeight: FontWeight.bold),
+          CustomText(text:Strings.userInformation!.value.ratingValue!,fontSize: 30,fontWeight: FontWeight.bold),
           const SizedBox(width: 15,),
-                  RatingBar.builder(initialRating: double.parse(userInformation!.value.ratingValue!),
+                  RatingBar.builder(initialRating: double.parse(Strings.userInformation!.value.ratingValue!),
                     ignoreGestures: true,
                     itemSize: 25,
                     direction: Axis.horizontal,allowHalfRating: true
@@ -383,7 +383,7 @@ class ProfilePage extends StatelessWidget {
         height: 180,
         decoration: const BoxDecoration(color: Colors.grey),
         child:_userController.isImageLoading.value?const Center(child: CircularProgressIndicator(color: Colors.white,),):
-          Image.network(userInformation!.value.imageUrl==""?appIconUrl:userInformation!.value.imageUrl!,fit: BoxFit.cover),
+          Image.network(Strings.userInformation!.value.imageUrl==""?Strings.appIconUrl:Strings.userInformation!.value.imageUrl!,fit: BoxFit.cover),
       ),
     ));
 
@@ -394,7 +394,7 @@ class ProfilePage extends StatelessWidget {
         ?
     prfileLoadingWidget(primaryColor)
         : CustomText(
-      text: "${userInformation!.value.userName}",fontSize: 25,fontWeight: FontWeight.bold,
+      text: "${Strings.userInformation!.value.userName}",fontSize: 25,fontWeight: FontWeight.bold,
     );
   }
 
@@ -403,7 +403,7 @@ class ProfilePage extends StatelessWidget {
         ?
     prfileLoadingWidget(primaryColor)
         : CustomText(
-      text: "${userInformation!.value.aboutDoctor}",fontWeight: FontWeight.bold,
+      text: "${Strings.userInformation!.value.aboutDoctor}",fontWeight: FontWeight.bold,
     );
   }
 
@@ -501,7 +501,7 @@ Get.back();                      await _userController.workDaysOperations(
 
   void _uploadImage() {
     getImageFile(onFileSelected: (File file){
-      String addOrUpdate=userInformation!.value.imageUrl ==appIconUrl?"add":"update";
+      String addOrUpdate=Strings.userInformation!.value.imageUrl ==Strings.appIconUrl?"add":"update";
       _userController.updateImage(
       image:file,addOrUpdatePhoto:addOrUpdate);
     });

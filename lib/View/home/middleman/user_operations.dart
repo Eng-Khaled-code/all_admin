@@ -5,7 +5,8 @@ import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_selection_list.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+
+import '../../utilities/strings.dart';
 // ignore: must_be_immutable
 String selectedMiddlemanType = "شقة";
 String selectedOperation = "بيع";
@@ -52,7 +53,6 @@ class _UserOperationsState extends State<UserOperations> {
 
   @override
   Widget build(BuildContext context) {
-    print(selectedMiddlemanType);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Obx(
@@ -116,7 +116,7 @@ class _UserOperationsState extends State<UserOperations> {
                             addOrUpdate:UserOperations.addOrUpdate=="إضافة"?"add":"update",
                             operation:selectedOperation,
                             type:selectedMiddlemanType,
-                            adminId:globalUserId,
+                            adminId:Strings.globalUserId,
                             moreDetails:UserOperations.txtMoreDetails,
                             roufNum:UserOperations.txtRoufNum,
                             size:UserOperations.txtArea,

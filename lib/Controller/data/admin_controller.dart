@@ -8,10 +8,11 @@ import 'package:middleman_all/Models/users/user_model.dart';
 import 'package:middleman_all/Services/main_operations.dart';
 import 'package:middleman_all/Services/ml_api.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../../View/utilities/strings.dart';
+
 class AdminController extends GetxController {
 
-  String url = appRootUrl+"admin/";
+  String url = Strings.appRootUrl+"admin/";
   RxBool isLoading = false.obs;
   RxDouble rxLat = 0.0.obs;
   RxDouble rxLong = 0.0.obs;
@@ -19,6 +20,7 @@ class AdminController extends GetxController {
 
   late List allProducts=[];
   late List products=[];
+
   late List allBooks=[];
   late List books=[];
 
@@ -54,8 +56,8 @@ class AdminController extends GetxController {
     super.onInit();
 
     bool
-        _admin=userInformation!.value.userType=="admin",
-        _fullAccess=userInformation!.value.userType=="full_access";
+        _admin=Strings.userInformation!.value.userType=="admin",
+        _fullAccess=Strings.userInformation!.value.userType=="full_access";
 
     if(_admin)
     {
@@ -119,7 +121,7 @@ class AdminController extends GetxController {
     else
     {
 
-       Map<String, dynamic> resultMap = await _mainOperation.postOperation(postData, (moduleName == "mps"||moduleName == "books" ? appRootUrl : url) + phpPageName + ".php");
+       Map<String, dynamic> resultMap = await _mainOperation.postOperation(postData, (moduleName == "mps"||moduleName == "books" ? Strings.appRootUrl : url) + phpPageName + ".php");
           if (resultMap["status"] == 1)
           {
             if(operationType=="load dasboard data")
@@ -136,8 +138,6 @@ class AdminController extends GetxController {
           }
           else
           {
-            print(moduleName);
-            print(resultMap["message"]);
             Get.snackbar("خطا", errorTranslation(resultMap["message"]));
           }
 
@@ -169,15 +169,16 @@ class AdminController extends GetxController {
     Map<String, String>? _postData;
     if(moduleName=="ecommerce"||moduleName=="middleman"||moduleName=="courses_list")
     {
-      _postData={"type":operationType!,"id":"$id","status":userStatusOrClinicStatus!,"reason":passwordOrStopReason!,"admin_id": "$globalUserId","admin_token":emailOrAdminToken!};
+      _postData={"type":operationType!,"id":"$id",
+        "status":userStatusOrClinicStatus!,"reason":passwordOrStopReason!,"admin_id": "${Strings.globalUserId}","admin_token":emailOrAdminToken!};
     }
     else  if(moduleName=="category")
     {
-      _postData={"type":operationType!,"category_id":"$id","category_status":userStatusOrClinicStatus!,"category_description":addressOrCategoryDescription!,"category":usernameOrCategory!,'category_type':categoryType=="تسوق"?"ecommerce":"course"};
+      _postData={"type":operationType!,"category_id":"$id","category_status":userStatusOrClinicStatus!,"category_description":addressOrCategoryDescription!,"category":usernameOrCategory!,'category_type':Strings.categoryType=="تسوق"?"ecommerce":"course"};
     }
     else if(moduleName=="mps")
     {
-      _postData={"type":operationType!,"id":"$id","status":userStatusOrClinicStatus!,"refuse_reason":passwordOrStopReason!,"missed_type": phoneOrMissedType!,"image_name":countryImageName!,"admin_id": "$globalUserId","admin_token":emailOrAdminToken!};
+      _postData={"type":operationType!,"id":"$id","status":userStatusOrClinicStatus!,"refuse_reason":passwordOrStopReason!,"missed_type": phoneOrMissedType!,"image_name":countryImageName!,"admin_id": "${Strings.globalUserId}","admin_token":emailOrAdminToken!};
     }
     else if(moduleName=="books")
     {
@@ -201,7 +202,7 @@ class AdminController extends GetxController {
           _base64File=base64Encode(bookFile.readAsBytesSync());
         }
 
-        _postData={"type":operationType!,"book_id":"$id","book_name":usernameOrCategory!,"book_name_english":_fileName,"old_book_name_english":phoneOrMissedType!,"base64_file":_base64File,"base64_image":_base64image,"od_image_name": addressOrCategoryDescription!,"image_name":_imageName,"user_id": "$globalUserId"};
+        _postData={"type":operationType!,"book_id":"$id","book_name":usernameOrCategory!,"book_name_english":_fileName,"old_book_name_english":phoneOrMissedType!,"base64_file":_base64File,"base64_image":_base64image,"od_image_name": addressOrCategoryDescription!,"image_name":_imageName,"user_id": "${Strings.globalUserId}"};
 
     }
     else

@@ -5,7 +5,7 @@ import 'package:middleman_all/Controller/data/admin_controller.dart';
 import 'package:middleman_all/View/home/admin/search_field.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_selection_list.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../../../utilities/strings.dart';
 import 'users_card.dart';
 
 class UsersPage extends StatefulWidget {
@@ -35,12 +35,12 @@ class _UsersPageState extends State<UsersPage> {
   Widget _dataWidget() {
 
     bool
-    _admin=userType=="مسئول",
-        _normalUser=userType=="مستخدم",
-        _doctor=userType=="اطباء",
-        _middleman=userType=="عقارات",
-        _ecommerce=userType=="تسوق",
-        _course=userType=="محاضر";
+    _admin=Strings.userType=="مسئول",
+        _normalUser=Strings.userType=="مستخدم",
+        _doctor=Strings.userType=="اطباء",
+        _middleman=Strings.userType=="عقارات",
+        _ecommerce=Strings.userType=="تسوق",
+        _course=Strings.userType=="محاضر";
 
     return Expanded(
       child: Obx(
@@ -53,12 +53,12 @@ class _UsersPageState extends State<UsersPage> {
                   ?
               loadingWidget()
                   :
-              userType=="مسئول"&& _adminController.admins.isEmpty?noDataCard(text:  "لا يوجد مسئولين",icon: Icons.person):
-              userType=="اطباء"  && _adminController.doctorUsers.isEmpty?noDataCard(text:  "لا يوجد أطباء",icon: Icons.person):
-              userType=="مستخدم"  && _adminController.normalUsers.isEmpty?noDataCard(text:  "لا يوجد مستخدمين",icon: Icons.person):
-              userType=="عقارات"  && _adminController.middlemanUsers.isEmpty?noDataCard(text:  "لا يوجد وسطاء للعقارات",icon: Icons.person):
-              userType=="تسوق"  && _adminController.ecommerceUsers.isEmpty?noDataCard(text:  "لا يوجد موزعين",icon: Icons.person):
-              userType=="محاضر"  && _adminController.coursesAdmin.isEmpty?noDataCard(text:  "لا يوجد محاضرين",icon: Icons.person):
+              Strings.userType=="مسئول"&& _adminController.admins.isEmpty?noDataCard(text:  "لا يوجد مسئولين",icon: Icons.person):
+              Strings.userType=="اطباء"  && _adminController.doctorUsers.isEmpty?noDataCard(text:  "لا يوجد أطباء",icon: Icons.person):
+              Strings.userType=="مستخدم"  && _adminController.normalUsers.isEmpty?noDataCard(text:  "لا يوجد مستخدمين",icon: Icons.person):
+              Strings.userType=="عقارات"  && _adminController.middlemanUsers.isEmpty?noDataCard(text:  "لا يوجد وسطاء للعقارات",icon: Icons.person):
+              Strings.userType=="تسوق"  && _adminController.ecommerceUsers.isEmpty?noDataCard(text:  "لا يوجد موزعين",icon: Icons.person):
+              Strings.userType=="محاضر"  && _adminController.coursesAdmin.isEmpty?noDataCard(text:  "لا يوجد محاضرين",icon: Icons.person):
 
     ListView.builder(
                   itemCount: _admin
@@ -125,8 +125,8 @@ class _UsersPageState extends State<UsersPage> {
 
 
   CustomSelectionList _usersTypeWidget() {
-    return CustomSelectionList(list:userTypesList ,listType: "userType2",onTap:  (String? text){
-    setState(()=> userType=text!);});
+    return CustomSelectionList(list:Strings.userTypesList ,listType: "userType2",onTap:  (String? text){
+    setState(()=> Strings.userType=text!);});
   }
 
   SearchField _searchWidget() {

@@ -13,6 +13,8 @@ import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 
+import '../../../utilities/strings.dart';
+
 class CourseCard extends StatefulWidget {
   final CourseModel ? model ;
   final CoursesController ? coursesController  ;
@@ -78,7 +80,7 @@ class _CourseCardState extends State<CourseCard> {
           decoration: BoxDecoration(border: Border.all(color: primaryColor),
             borderRadius: BorderRadius.circular(15),
             image:
-            DecorationImage(image: NetworkImage(widget.model!.imageUrl!),
+            DecorationImage(image: NetworkImage(Strings.coursesImagesDirectoryUrl+widget.model!.imageUrl!),
               fit: BoxFit.cover,
               onError: (k, l) =>
                   Image.asset(

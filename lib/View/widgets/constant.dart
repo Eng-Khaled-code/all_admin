@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../utilities/strings.dart';
 import 'custom_text.dart';
 
 const Color primaryColor=Colors.blue;
@@ -120,7 +120,7 @@ Row adminProfileWidget({String? name="",String? image="",String? date,Color? col
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       const SizedBox(width: 5,),
-      CircleAvatar(backgroundImage: NetworkImage(image==""?appIconUrl:image!),backgroundColor: Colors.grey,),
+      CircleAvatar(backgroundImage: NetworkImage(image==""?Strings.appIconUrl:image!),backgroundColor: Colors.grey,),
       const SizedBox(width: 15,),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,

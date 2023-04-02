@@ -19,7 +19,6 @@ class VideosPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    coursesController!.videoOperations(type: "load",secId: sectionModel!.id);
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -64,7 +63,9 @@ class VideosPage extends StatelessWidget {
 
   FloatingActionButton _myFloatAB() {
     return FloatingActionButton.extended(
-        onPressed: ()=>Get.to(AddVideo(coursesController:coursesController,courseId: sectionModel!.courseId,secId: sectionModel!.id,opeType: "add")),
+        onPressed: ()=>Get.to(
+            AddVideo(coursesController:coursesController,
+                courseId: sectionModel!.courseId,secId: sectionModel!.id,opeType: "add")),
         icon:const Icon(Icons.video_library),label:const Text("إضافة فيديو"));
   }
 }

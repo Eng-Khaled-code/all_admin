@@ -7,9 +7,9 @@ import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_selection_list.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import '../../../utilities/strings.dart';
 import '../../../widgets/custom_text.dart';
 import 'open_google_map.dart';
 
@@ -93,6 +93,7 @@ class _AddUserState extends State<AddUser> {
                         GestureDetector(onTap:()async {
 
                           if(_adminController.rxAddress.value=="") {
+
                             Position ? _currentPosition =
                             await Geolocator.getCurrentPosition();
 
@@ -142,8 +143,8 @@ class _AddUserState extends State<AddUser> {
 
   CustomSelectionList _userTypesWidget() {
     return
-      CustomSelectionList(list:userTypesList,listType: "userType",onTap:  (String? text){
-      setState(()=> userType=text!);
+      CustomSelectionList(list:Strings.userTypesList,listType: "userType",onTap:  (String? text){
+      setState(()=> Strings.userType=text!);
       });
   }
 
@@ -169,8 +170,9 @@ class _AddUserState extends State<AddUser> {
 
           if(_formKey.currentState!.validate()&&_adminController.rxAddress.value!=""){
             await _adminController.operations(moduleName: "users",operationType: "add",
-          addressOrCategoryDescription:_adminController.rxAddress.value,passwordOrStopReason: password,userType: userType=="محاضر"?"course_admin":userType=="اطباء"?"doctor":userType=="تسوق"?"ecommerce":userType=="مسئول"?"admin":"middleman",
-          phoneOrMissedType: phone,usernameOrCategory: name,userStatusOrClinicStatus: userType=="اطباء"?"1":"0",
+          addressOrCategoryDescription:_adminController.rxAddress.value,passwordOrStopReason: password,
+                userType: Strings.userType=="محاضر"?"course_admin":Strings.userType=="اطباء"?"doctor":Strings.userType=="تسوق"?"ecommerce":Strings.userType=="مسئول"?"admin":"middleman",
+          phoneOrMissedType: phone,usernameOrCategory: name,userStatusOrClinicStatus: Strings.userType=="اطباء"?"1":"0",
           countryImageName: selectedCountry,emailOrAdminToken: email,lat:_adminController.rxLat.value.toString(),long: _adminController.rxLong.value.toString()
           );
           }

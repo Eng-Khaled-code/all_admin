@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middleman_all/Controller/data/admin_controller.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+
+import '../../utilities/strings.dart';
 class AdminDashboard extends StatelessWidget {
   final AdminController _adminController=Get.find();
 
@@ -12,11 +13,10 @@ class AdminDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool
-    _admin=userInformation!.value.userType=="admin",
-    _fullAccess=userInformation!.value.userType=="full_access";
+    _admin=Strings.userInformation!.value.userType=="admin",
+    _fullAccess=Strings.userInformation!.value.userType=="full_access";
     return RefreshIndicator(
         onRefresh: ()async{
-
 
     _admin? await _adminController.operations(moduleName: "ecommerce",operationType:"load"):(){};
     _admin? await _adminController.operations(moduleName: "middleman",operationType:"load"):(){};

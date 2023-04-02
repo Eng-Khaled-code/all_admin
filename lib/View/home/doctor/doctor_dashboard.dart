@@ -5,7 +5,8 @@ import 'package:middleman_all/Controller/data/doctor_controller.dart';
 import 'package:middleman_all/Controller/data/user_controller.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+
+import '../../utilities/strings.dart';
 
 class DoctorDashboard extends StatelessWidget {
 
@@ -38,7 +39,6 @@ class DoctorDashboard extends StatelessWidget {
             dashboardCard(lable: "الانتظار اليوم",type: "doctor",counter:_doctorController.dayWaitingLength.value ),
             dashboardCard(lable: "تم الكشف",type: "doctor",counter:_doctorController.allWaitingLength.value ),
             dashboardCard(lable:"تم الكشف اليوم",type: "doctor",counter:_doctorController.dayFinishedLength.value ),
-
             dashboardCard(lable: "المقبول",type: "doctor",counter:_doctorController.allAcceptedLength.value ),
             dashboardCard(lable: "المقبول اليوم",type: "doctor",counter:_doctorController.dayAcceptedLength.value ),
             dashboardCard(lable: "المرفوض",type: "doctor",counter:_doctorController.allRefusedLength.value ),
@@ -61,13 +61,13 @@ class DoctorDashboard extends StatelessWidget {
 
         children: <TextSpan>[
           TextSpan(
-              text:userInformation!.value.clinickStatus==0
+              text:Strings.userInformation!.value.clinickStatus==0
           ?
           "هذه العيادة مغلقة حاليا ولا يمكنها استقبال الحجوزات لفتحها لإستقبال الحجوزات إضغط ":"العيادة يمكنها استقبال طلبات الان لغلقها إضغط ",
               style: const TextStyle(color: Colors.blue)),
           TextSpan(
               text: "هنا",
-              style:TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0,color:userInformation!.value.clinickStatus==0?primaryColor:Colors.red,decoration: TextDecoration.underline),
+              style:TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0,color:Strings.userInformation!.value.clinickStatus==0?primaryColor:Colors.red,decoration: TextDecoration.underline),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   showPlaceStatusDialog()  ;               }),
@@ -91,12 +91,12 @@ class DoctorDashboard extends StatelessWidget {
           title: const Text("تغيير حالة العيادة"),
           content: Form(
               key: _formKey,
-              child: userInformation!.value.clinickStatus==0?CustomText(alignment:Alignment.centerRight,text:"هل تريد فتح العيادة"): Padding(
+              child: Strings.userInformation!.value.clinickStatus==0?CustomText(alignment:Alignment.centerRight,text:"هل تريد فتح العيادة"): Padding(
         padding:  const EdgeInsets.only(right:20.0),
         child: TextFormField(
           controller: _controller,
           validator: (String? value) {
-        if (value!.isEmpty&&userInformation!.value.clinickStatus==0){
+        if (value!.isEmpty&&Strings.userInformation!.value.clinickStatus==0){
         return "يجب ان تدخل السبب";}
         },
           decoration:const InputDecoration(
@@ -110,7 +110,7 @@ class DoctorDashboard extends StatelessWidget {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
             Get.back();
-            await _userController.updateUserFields(key:"d_clinick_status",value:userInformation!.value.clinickStatus==0?"1":"0",clinickReason:_controller.text);
+            await _userController.updateUserFields(key:"d_clinick_status",value:Strings.userInformation!.value.clinickStatus==0?"1":"0",clinickReason:_controller.text);
             }
           },
           child: const Text("حفظ",

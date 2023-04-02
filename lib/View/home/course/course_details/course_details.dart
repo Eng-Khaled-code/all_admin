@@ -9,6 +9,8 @@ import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 
+import '../../../utilities/strings.dart';
+
 class CourseDetails extends StatelessWidget {
   final CourseModel? courseModel;
 
@@ -36,7 +38,7 @@ class CourseDetails extends StatelessWidget {
       },
       child:SingleChildScrollView(
           child: Column(children: [
-            imageWidget(image: courseModel!.imageUrl),
+            imageWidget(image: Strings.coursesImagesDirectoryUrl+courseModel!.imageUrl!),
             const SizedBox(height: 10),
             CustomText(text: courseModel!.name!,fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black,),
             Padding(

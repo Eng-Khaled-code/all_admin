@@ -16,7 +16,6 @@ operationDialog({String? type,int? id=0,String? name="",String? desc="",
   _isDiscount=_isAddDis||_isUpdateDis,
   _isUpdate=_isUpdateDis||_isUpdateCate
   ;
-
   late TextEditingController _endTime = TextEditingController(text:_isUpdateDis? endTime!.substring(0,10):"");
   Get.dialog(
   Directionality(
@@ -37,7 +36,7 @@ operationDialog({String? type,int? id=0,String? name="",String? desc="",
   _name=value;
   },), const SizedBox(height: 15.0),
   _isDiscount?CustomTextField(
-  initialValue:type=="تعديل"?persentage:"",
+  initialValue:type=="تعديل العرض"?persentage:"",
   lable: "نسبة الخصم",
   onSave: (value) {
   _percentage=value;

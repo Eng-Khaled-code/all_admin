@@ -109,10 +109,10 @@ class _AddBookState extends State<AddBook> {
               :
           Padding(
               padding:const EdgeInsets.all(8.0),
-              child: OutlineButton(
+              child: OutlinedButton(
                 onPressed: ()=>getImageFile(onFileSelected: (File file)=>setState(()=>_image=file)),
-                borderSide: BorderSide(
-                    color: Colors.grey.withOpacity(0.5), width: 1),
+                style: OutlinedButton.styleFrom( side: BorderSide(
+                    color: Colors.grey.withOpacity(0.5), width: 1)),
                 child: Icon(Icons.add_a_photo,
                     size: 80, color: Colors.grey.withOpacity(.5)),
               )))

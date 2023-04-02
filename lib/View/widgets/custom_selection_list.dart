@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:middleman_all/View/home/admin/middleman_page.dart';
 import 'package:middleman_all/View/home/admin/missed/missed_page.dart';
 import 'package:middleman_all/View/home/admin_full_access/users/add_user.dart';
-import 'package:middleman_all/View/home/course/add_course.dart';
 import 'package:middleman_all/View/home/middleman/user_operations.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../utilities/strings.dart';
 import 'constant.dart';
 import 'custom_text.dart';
 class CustomSelectionList extends StatelessWidget {
@@ -51,7 +50,7 @@ class CustomSelectionList extends StatelessWidget {
             :
         listType=="userType"||listType=="userType2"
             ?
-        userType
+        Strings.userType
             :
         listType=="ecommerce_category_list"||listType=="category_model_list"
             ?
@@ -64,8 +63,10 @@ class CustomSelectionList extends StatelessWidget {
         listType=="types"
             ?
         selectedMiddlemanType
-            : listType=="cate"
-            ?categoryType
+            :
+        listType=="cate"
+            ?
+        Strings.categoryType
             :
         "");
 

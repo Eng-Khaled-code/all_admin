@@ -1,4 +1,5 @@
-import 'package:middleman_all/start_point/app_constant.dart';
+
+import '../../View/utilities/strings.dart';
 
 class CategoryModel
 {
@@ -24,7 +25,7 @@ String? itemsCount;
       modifiedAt: data["modified_at"]??"",
         status: data["status"]??0,
       changeStatusDate: data['changing_status_date']??'',
-      itemsCount: data[categoryType=="تسوق"?'item_count':'courses_count']??"0"
+      itemsCount: data[Strings.categoryType=="تسوق"?'item_count':'courses_count']??"0"
     );
   }
 

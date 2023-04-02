@@ -3,10 +3,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:middleman_all/Controller/data/courses_controller.dart';
 import 'package:middleman_all/Models/courses/section_model.dart';
-import 'package:middleman_all/View/home/course/video_details/videos_page.dart';
-import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
+
+import '../video_details/videos_page.dart';
 class SectionCard extends StatelessWidget {
   final SectionModel? sectionModel;
   SectionCard({Key? key, this.sectionModel,this.coursesController}) : super(key: key);
@@ -15,7 +15,10 @@ class SectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>Get.to(VideosPage(coursesController:coursesController,sectionModel: sectionModel)),
+      onTap: (){
+        coursesController!.videoOperations(type: "load",secId: sectionModel!.id);
+
+        Get.to(VideosPage(coursesController:coursesController,sectionModel: sectionModel));},
       child: Card(child: ListTile(trailing: operationRow((){
         //onPressUpdate
         showReasonDialog(title: "تعديل سكشن",initialValue: sectionModel!.name,lable: "السكشن",onPress: (secName)async{

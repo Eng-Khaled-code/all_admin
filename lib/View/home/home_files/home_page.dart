@@ -11,7 +11,7 @@ import 'package:middleman_all/View/home/middleman/user_operations.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 import 'package:middleman_all/View/widgets/drawer.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../../utilities/strings.dart';
 import '../ecommerce/discount/operation_dialog.dart';
 import 'app_modules_screens.dart';
 import 'nav_bar_lists.dart';
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _userType=userInformation!.value.userType!;
+    _userType=Strings.userInformation!.value.userType!;
     return WillPopScope(
     onWillPop:()=> _onWillPop(context),
     child:Directionality(
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
   FloatingActionButton? _floatingActionButton(){
     bool _user=currentIndex==1,_book=currentIndex==2,_category=currentIndex==3;
     return currentIndex==0?null:FloatingActionButton.extended(
-      onPressed: ()=>_category?operationDialog(type: "إضافة قسم لل"+categoryType,controller: _adminController)
+      onPressed: ()=>_category?operationDialog(type: "إضافة قسم لل"+Strings.categoryType,controller: _adminController)
           :
       Get.to(_user?AddUser():AddBook()),icon
         :
@@ -70,6 +70,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   FloatingActionButton? _floatingActionButtonForCourse(){
+
     return FloatingActionButton.extended(
       onPressed: (){
         if(courseCategory==null)
@@ -245,6 +246,5 @@ class _HomePageState extends State<HomePage> {
 
         ));
   }
-
 
 }

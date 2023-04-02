@@ -10,10 +10,11 @@ import 'package:middleman_all/View/home/home_files/home_page.dart';
 import 'package:middleman_all/Models/users/user_model.dart';
 import 'package:middleman_all/View/profile/profile_constant.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../../View/utilities/strings.dart';
+
 class UserController extends GetxController{
 
-  String url=appRootUrl+"auth/";
+  String url=Strings.appRootUrl+"auth/";
 
   List userPhones=[];
   List userWorkDays=[];
@@ -44,9 +45,9 @@ class UserController extends GetxController{
       page(prefs.read("log_in")==null?"log_in":prefs.read("log_in")=="log_in"?"log_in":"splach");
       if(page=="splach".obs)
       {
-        globalUserId =int.tryParse(prefs.read("user_id"));
+        Strings.globalUserId =int.tryParse(prefs.read("user_id"));
 
-        openMyHomePage(email: "",password: "",type: "load",userId:"$globalUserId",userType: "");
+        openMyHomePage(email: "",password: "",type: "load",userId:"${Strings.globalUserId}",userType: "");
       }
   }
 
@@ -56,20 +57,21 @@ class UserController extends GetxController{
   //await FirebaseMessaging.instance.getToken().then((String? token)async{
 
     Map<String, String> postData = {"email": email!, "password": password!,"type":type!,"user_type":userType!,"user_id":userId!,"token":"test"};
+  print(userType+" "+email+" "+password);
 
      Map<String, dynamic> resultMap =await _mainOperation.postOperation(postData, url + "on_app_start.php");
     if (resultMap["status"] == 1) {
     prefs.write("user_id", "${resultMap["data"]["user_id"]}");
-    globalUserId=resultMap["data"]["user_id"];
+    Strings.globalUserId=resultMap["data"]["user_id"];
     prefs.write("log_in","splach");
 
-    userInformation=UserModel.fromSnapshot(resultMap["data"]).obs ;
+    Strings.userInformation=UserModel.fromSnapshot(resultMap["data"]).obs ;
     Get.offAll(()=>const HomePage());
     Get.snackbar("","تم تسجيل الدخول بنجاح");
 
     phoneOperations(type:"load",phoneId:"",number:"");
     countryOperations(type:"load",countryId:"",country:"");
-    userInformation!.value.userType=="doctor"?workDaysOperations(type:"load"):(){};
+    Strings.userInformation!.value.userType=="doctor"?workDaysOperations(type:"load"):(){};
 
     } else {
       if(type=="log_in")
@@ -106,9 +108,9 @@ class UserController extends GetxController{
     Map<String, String> postData =
     {
       "addOrUpdatePhoto":addOrUpdatePhoto!,
-      "userId":userInformation!.value.userId.toString(),
+      "userId":Strings.userInformation!.value.userId.toString(),
       "image_name":imageName,
-       "old_image_name":userInformation!.value.imageUrl!.split("/").last,
+       "old_image_name":Strings.userInformation!.value.imageUrl!.split("/").last,
       "base64":base64
     };
 
@@ -117,7 +119,7 @@ class UserController extends GetxController{
         postData, url + "update_photo.php");
     if (resultMap["status"] == 1) {
 
-      userInformation=UserModel.fromSnapshot(resultMap['data']).obs;
+      Strings.userInformation=UserModel.fromSnapshot(resultMap['data']).obs;
           Fluttertoast.showToast(msg:"تم تحديث صورة الملف الشخصي بنجاح",toastLength: Toast.LENGTH_LONG,
     textColor: primaryColor,
     backgroundColor: Colors.white);
@@ -136,7 +138,7 @@ class UserController extends GetxController{
   prefs.write("user_id", "");
   prefs.write("log_in","log_in");
   page('log_in');
-  userType="مسئول";
+  Strings.userType="مسئول";
   currentIndex=0;
   Get.offAll(()=>Directionality(textDirection: TextDirection.rtl,child: LogIn()));
   Get.snackbar("","تم تسجيل الخروج بنجاح");
@@ -149,7 +151,7 @@ class UserController extends GetxController{
 
   Map<String, String> postData =
   {
-  "user_id": userInformation!.value.userId.toString(),
+  "user_id": Strings.userInformation!.value.userId.toString(),
   "type":type!,
   "phone_id":phoneId!,
   "number":number!
@@ -179,7 +181,7 @@ class UserController extends GetxController{
     isWorkDaysLoading(true);
     Map<String, String> postData =
     {
-      "doc_id": "$globalUserId",
+      "doc_id": "${Strings.globalUserId}",
       "type":type!,
       "start_time":startTime!,
       "end_time":endTime!,
@@ -212,7 +214,7 @@ class UserController extends GetxController{
 
     Map<String, String> postData =
     {
-      "user_id": userInformation!.value.userId.toString(),
+      "user_id": Strings.userInformation!.value.userId.toString(),
       "type":type!,
       "country_id":countryId!,
       "country":country!
@@ -257,7 +259,7 @@ class UserController extends GetxController{
 
     Map<String, String> postData =
     {
-      "user_id": userInformation!.value.userId.toString(),
+      "user_id": Strings.userInformation!.value.userId.toString(),
       "key":key!,
       "value":value!,
     };
@@ -271,7 +273,7 @@ class UserController extends GetxController{
 
         Map<String, String> postData2 =
         {
-          "user_id": userInformation!.value.userId.toString(),
+          "user_id": Strings.userInformation!.value.userId.toString(),
           "key":"d_closing_reason",
           "value":clinickReason!,
         };
@@ -279,7 +281,7 @@ class UserController extends GetxController{
             postData2, url + "update_user.php");
 
         if (result2Map["status"] == 1) {
-          userInformation = UserModel
+          Strings.userInformation = UserModel
               .fromSnapshot(result2Map["data"])
               .obs;
           Fluttertoast.showToast(msg:key=="0"?"تم فتح العيادةبنجاح" :"تم إغلاق العيادة");
@@ -293,7 +295,7 @@ class UserController extends GetxController{
 
 
         }else {
-        userInformation = UserModel
+        Strings.userInformation = UserModel
             .fromSnapshot(resultMap["data"])
             .obs;
         Fluttertoast.showToast(msg:
@@ -329,7 +331,7 @@ class UserController extends GetxController{
 
     Map<String, String> postData =
     {
-      "user1_id": userInformation!.value.userId.toString(),
+      "user1_id": Strings.userInformation!.value.userId.toString(),
       "type":"load",
       "user2_id":"",
       "comment":"",

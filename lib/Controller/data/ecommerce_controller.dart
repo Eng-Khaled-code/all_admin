@@ -9,11 +9,11 @@ import 'package:middleman_all/Models/ecommerce/product_model.dart';
 import 'package:middleman_all/Services/main_operations.dart';
 import 'package:middleman_all/View/home/home_files/home_page.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../../View/utilities/strings.dart';
 
 class EcommerceController extends GetxController {
 
-  String url = appRootUrl+"ecommerce/";
+  String url = Strings.appRootUrl+"ecommerce/";
   RxBool isLoading = false.obs;
   RxBool isCategoryLoading = false.obs;
 
@@ -39,7 +39,7 @@ class EcommerceController extends GetxController {
   {
 
     isLoading(true);
-    Map<String, String> postData = {"admin_id": "$globalUserId"};
+    Map<String, String> postData = {"admin_id": "${Strings.globalUserId}"};
 
     Map<String, dynamic> resultMap = await _mainOperation.postOperation(
         postData, url + "load_products.php");
@@ -113,7 +113,7 @@ class EcommerceController extends GetxController {
     {
       "type": addOrUpdateOrDelete!,
       "product_name": name!,
-      "admin_id":"$globalUserId",
+      "admin_id":"${Strings.globalUserId}",
       "desc": moreDetails!,
       "category": category!,
       "price": price!,
@@ -185,7 +185,7 @@ class EcommerceController extends GetxController {
 
     isLoading(true);
     Map<String, String> postData = {
-      "user_id": "$globalUserId",
+      "user_id": "${Strings.globalUserId}",
       "percentage":percentage!,
       "status":"$status",
       "discount_id":"$disId",

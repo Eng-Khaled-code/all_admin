@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:middleman_all/Models/doctor/booking_model.dart';
 import 'package:middleman_all/Services/main_operations.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+
+import '../../View/utilities/strings.dart';
 class DoctorController extends GetxController {
 
-  String url = appRootUrl+"doctors/";
+  String url = Strings.appRootUrl+"doctors/";
   RxBool isLoading = false.obs;
   List allBookingList=[];
   List<BookingModel> waitingBookingList=[];
@@ -50,7 +51,7 @@ class DoctorController extends GetxController {
     if(type!="in"){
     isLoading(true);
     }
-    Map<String, String> postData = {"doc_id": "$globalUserId"};
+    Map<String, String> postData = {"doc_id": "${Strings.globalUserId}"};
 
     Map<String, dynamic> resultMap = await _mainOperation.postOperation(
         postData, url + "get_bookings_by_doctor.php");
@@ -203,7 +204,7 @@ finishedBookingList=[];
 
     Map<String, String> postData = {
       "book_id": " ",
-      "doc_id":"$globalUserId",
+      "doc_id":"${Strings.globalUserId}",
       "user_id":thisDay,
       "type":"add from clinick",
       "patient_name":patientName!,

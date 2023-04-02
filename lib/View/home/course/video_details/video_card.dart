@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:middleman_all/Controller/data/courses_controller.dart';
 import 'package:middleman_all/Models/courses/video_model.dart';
+import 'package:middleman_all/View/utilities/strings.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 import 'package:video_player/video_player.dart';
@@ -31,12 +32,15 @@ class _VideoCardState extends State<VideoCard> {
     // TODO: implement initState
     super.initState();
 
-    videoPlayerController=VideoPlayerController.network(widget.model!.videoUrl!)..initialize().then((value) => setState((){}));
+    String videoUrl=Strings.coursesVideosDirectoryUrl+widget.courseId.toString()+"/"+widget.model!.secId.toString()+"/"+widget.model!.videoUrl!;
+    videoPlayerController=VideoPlayerController.network(videoUrl)..initialize().then((value) => setState((){}));
   }
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
+
+        widget.coursesController!.questionOperations(type: "load",videoId: widget.model!.id);
         Get.to(VideoWatchingPage(model: widget.model,coursesController:widget.coursesController));
       },
       child: Card(

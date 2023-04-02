@@ -1,15 +1,19 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
+import 'package:dio/dio.dart';
 
 class MlServices {
+  Dio dio=Dio();
 
   Future<Map<String,dynamic>> getSuggestions(String imagName) async {
     try {
-      var uri = Uri.parse("http://192.168.43.109:8888/"+imagName);
-      var response = await http.get(uri);
+
+      // face recognation script url
+      String uri = "http://192.168.43.109:8888/"+imagName;
+      var response = await dio.get(uri);
 
       if (response.statusCode == 200) {
-        var resultMap = jsonDecode(response.body);
+        var resultMap = jsonDecode(response.data);
         print("نجاح");
 
         return resultMap;

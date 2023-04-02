@@ -4,7 +4,7 @@ import 'package:middleman_all/Controller/data/admin_controller.dart';
 import 'package:middleman_all/Models/main_admin/category_model.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_selection_list.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../../../utilities/strings.dart';
 import 'category_card.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -57,7 +57,7 @@ class _CategoryPageState extends State<CategoryPage> {
 
   CustomSelectionList _categoryTypeWidget() {
     return CustomSelectionList(list:const["تسوق","كورسات"] ,listType: "cate",onTap:  (String? text)async{
-    setState(()=> categoryType=text!);
+    setState(()=> Strings.categoryType=text!);
     await _adminController.operations(moduleName: "category",operationType: "load");
 
     });

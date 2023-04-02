@@ -4,7 +4,7 @@ import 'package:middleman_all/Controller/data/doctor_controller.dart';
 import 'package:middleman_all/Models/doctor/booking_model.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+import '../../../utilities/strings.dart';
 import '../doctor_constant.dart';
 
 // ignore: must_be_immutable
@@ -50,7 +50,7 @@ class BookingCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         adminProfileWidget(name:"${model!.username==""?"لا يوجد مستخدم":model!.username}",
-            image: model!.userImage==""?appIconUrl:model!.userImage!,date:model!.reqDate!),
+            image: model!.userImage==""?Strings.appIconUrl:model!.userImage!,date:model!.reqDate!),
         coloredContainer(text:model!.bookType! )
       ],
     );

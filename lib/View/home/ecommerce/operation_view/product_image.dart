@@ -25,10 +25,10 @@ class ProductImageState extends State<ProductImage> {
                   : imageFile == null && imagePath == ""
                       ? Padding(
                           padding:const EdgeInsets.all(8.0),
-                          child: OutlineButton(
+                          child: OutlinedButton(
                             onPressed: onTap,
-                            borderSide: BorderSide(
-                                color: Colors.grey.withOpacity(0.5), width: 1),
+                            style: OutlinedButton.styleFrom(side:BorderSide(
+                                color: Colors.grey.withOpacity(0.5), width: 1)),
                             child: Icon(Icons.add_a_photo,
                                 size: 80, color: Colors.grey.withOpacity(.5)),
                           ))

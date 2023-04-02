@@ -46,8 +46,8 @@ class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProv
 
   @override
   void dispose() {
-    super.dispose();
     _controller!.dispose();
+    super.dispose();
   }
 
 
@@ -133,7 +133,7 @@ class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProv
     return Opacity(
       opacity:_controller!.value,
       child: TextFormField(
-        onTap:()=>widget.onTap!(),
+        onTap:()=>widget.onTap??(){},
         initialValue: widget.initialValue,
           readOnly: widget.lable=="العنوان",
           maxLines:widget.lable=="تفاصيل اكثر"||widget.lable=="العنوان"||widget.lable=="السؤال"? 3:widget.lable=="الشرح"?8:1,

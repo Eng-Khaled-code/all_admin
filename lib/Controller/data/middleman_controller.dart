@@ -5,10 +5,11 @@ import 'package:middleman_all/Models/middleman/place_model.dart';
 import 'package:middleman_all/Services/main_operations.dart';
 import 'package:middleman_all/View/home/home_files/home_page.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+
+import '../../View/utilities/strings.dart';
 class MiddlemanController extends GetxController {
 
-  String url = appRootUrl+"middleman/";
+  String url = Strings.appRootUrl+"middleman/";
   RxBool isLoading = false.obs;
   RxBool isDataLoading = false.obs;
   RxBool isBuyerLoading = false.obs;
@@ -32,7 +33,7 @@ class MiddlemanController extends GetxController {
     isDataLoading(true);
 
 
-    Map<String, String> postData = {"user_id": "$globalUserId"};
+    Map<String, String> postData = {"user_id": "${Strings.globalUserId}"};
 
     Map<String, dynamic> resultMap = await _mainOperation.postOperation(
         postData, url + "load_data.php");
@@ -84,13 +85,8 @@ class MiddlemanController extends GetxController {
   }) async {
 
     isLoading(true);
-    print(type);
 
     String _selectedType = (type == "شقة") ? "flat" : (type == "محل") ? "local_store" : (type == "عمارة") ? "block" : "ground";
-
-    print(type == "شقة");
-
-    print(_selectedType);
 
     Map<String, String> postData =
     {

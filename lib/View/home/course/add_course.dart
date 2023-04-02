@@ -2,13 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:middleman_all/Controller/data/admin_controller.dart';
 import 'package:middleman_all/Controller/data/courses_controller.dart';
 import 'package:middleman_all/Models/courses/course_category_model.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_button.dart';
-import 'package:middleman_all/View/widgets/custom_selection_list.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
 class AddCourse extends StatefulWidget {
@@ -130,10 +128,10 @@ class _AddCourseState extends State<AddCourse> {
               :
           Padding(
               padding:const EdgeInsets.all(8.0),
-              child: OutlineButton(
+              child: OutlinedButton(
                 onPressed: ()=>getImageFile(onFileSelected: (File file)=>setState(()=>_image=file)),
-                borderSide: BorderSide(
-                    color: Colors.grey.withOpacity(0.5), width: 1),
+                style: OutlinedButton.styleFrom(side:BorderSide(
+                    color: Colors.grey.withOpacity(0.5), width: 1)),
                 child: Icon(Icons.add_a_photo,
                     size: 80, color: Colors.grey.withOpacity(.5)),
               )))
@@ -169,7 +167,6 @@ class _AddCourseState extends State<AddCourse> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _image=null;
   }

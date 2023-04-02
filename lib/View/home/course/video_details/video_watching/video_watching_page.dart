@@ -10,10 +10,10 @@ import 'package:video_player/video_player.dart';
 
 import 'add_question.dart';
 import 'question_card.dart';
+import 'video/video_widget.dart';
 class VideoWatchingPage extends StatefulWidget {
   final VideoModel? model;
   final CoursesController? coursesController;
-
 
   VideoWatchingPage({Key? key, this.model,this.coursesController}) : super(key: key);
 
@@ -24,10 +24,7 @@ class VideoWatchingPage extends StatefulWidget {
 class _VideoWatchingPageState extends State<VideoWatchingPage> {
 
   VideoPlayerController? videoPlayerController;
-  bool showVideoActions=true;
-  IconData playPauseIcon=Icons.pause;
-  IconData soundIcon=Icons.volume_up;
-  IconData fullscreenIcon=CupertinoIcons.fullscreen;
+
 
   @override
   void initState() {
@@ -40,10 +37,6 @@ class _VideoWatchingPageState extends State<VideoWatchingPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
-    widget.coursesController!.questionOperations(type: "load",videoId: widget.model!.id);
-
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -57,7 +50,7 @@ class _VideoWatchingPageState extends State<VideoWatchingPage> {
     physics:const AlwaysScrollableScrollPhysics(),
 
     child: Column(children: [
-                  _videoWatchWidget(),
+                  VideoWidget(videoPlayerController: videoPlayerController),
                   const SizedBox(height: 10),
                   CustomText(text: "  "+widget.model!.name!,fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black,alignment: Alignment.topRight,),
                   Padding(
@@ -78,7 +71,8 @@ class _VideoWatchingPageState extends State<VideoWatchingPage> {
   Widget _dataWidget() {
 
     return Obx(
-            ()=>widget.coursesController!.isQuestionLoading.value
+            ()=>
+            widget.coursesController!.isQuestionLoading.value
             ?
         loadingWidget()
             :
@@ -107,127 +101,11 @@ class _VideoWatchingPageState extends State<VideoWatchingPage> {
         icon:const Icon(Icons.question_mark),label:const Text("إضافة سؤال"));
   }
 
-  _videoWatchWidget() {
-    return SizedBox(
-        height: Get.height * .4,
-        width: double.infinity,
-        child:
-
-        Stack(children:
-        [
-
-          VideoPlayer(videoPlayerController!),
-           _loadWidget(),
-         // Positioned(bottom: 0,child: Opacity(opacity: .5,child: Container(width: double.infinity,height: 70,color: Colors.black,),))
-
-          _videoActionsWidget(),
-          VideoProgressIndicator(videoPlayerController!, allowScrubbing: true,),
-
-    ])
-
-
-    ,
-
-    );
-  }
-
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     videoPlayerController!.dispose();
-  }
-
- Widget _loadWidget() {
-    return !videoPlayerController!.value.isInitialized
-    ?
-    const Center(child: CircularProgressIndicator(strokeWidth: .7,))
-        :
-    Container();
-  }
-
- Widget _videoActionsWidget()
- {
-   return Positioned(
-       bottom:0,
-       child: Row(mainAxisSize: MainAxisSize.min,
-     mainAxisAlignment: MainAxisAlignment.spaceBetween
-     ,children: [
-     _playPauseButton(),
-     Text(videoPlayerController!.value.position.inSeconds.toString()),
-     _soundButton(),
-     _fullScreenButton()
-   ],),);
-
- }
-
-  _playPauseButton(){
-    return IconButton(onPressed: (){
-      if(videoPlayerController!.value.isInitialized){
-
-        if(playPauseIcon==Icons.pause)
-      {
-        playPauseIcon=Icons.play_arrow;
-        videoPlayerController!.pause();
-
-      }
-      else{
-          playPauseIcon=Icons.pause;
-          videoPlayerController!.play();
-
-      }
-
-      setState(() {
-      });
-      }
-    }, icon: Icon(playPauseIcon));
-  }
-
-
-  _soundButton(){
-    return IconButton(onPressed: (){
-      if(videoPlayerController!.value.isInitialized) {
-
-        if(soundIcon == Icons.volume_up )
-        {
-
-          soundIcon = Icons.volume_off;
-          videoPlayerController
-            !.setVolume(0);
-        }
-        else
-        {
-          soundIcon= Icons.volume_up;
-          videoPlayerController
-          !.setVolume(100);
-        }
-      setState(() {
-      });
-    }
-    },
-        icon: Icon(soundIcon));
-  }
-
-
-  _fullScreenButton(){
-    return IconButton(onPressed: (){
-      if(videoPlayerController!.value.isInitialized) {
-
-        if(fullscreenIcon == CupertinoIcons.fullscreen )
-        {
-
-          fullscreenIcon = CupertinoIcons.fullscreen_exit;
-
-      }
-      else
-      {
-           fullscreenIcon= CupertinoIcons.fullscreen;
-}
-      setState(() {
-      });
-    }
-    },
-        icon: Icon(fullscreenIcon));
   }
 
 }

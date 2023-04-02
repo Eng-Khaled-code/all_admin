@@ -6,7 +6,8 @@ import 'package:middleman_all/Models/main_admin/category_model.dart';
 import 'package:middleman_all/View/home/ecommerce/discount/operation_dialog.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
-import 'package:middleman_all/start_point/app_constant.dart';
+
+import '../../../utilities/strings.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoryModel? model;
@@ -67,7 +68,7 @@ class CategoryCard extends StatelessWidget {
   }
 
   Padding _dataWidget(){
-    String details= "يحتوي علي ${model!.itemsCount}${categoryType=="تسوق"?" منتج":" كورس"} \n الشرح : ${model!.description}";
+    String details= "يحتوي علي ${model!.itemsCount}${Strings.categoryType=="تسوق"?" منتج":" كورس"} \n الشرح : ${model!.description}";
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

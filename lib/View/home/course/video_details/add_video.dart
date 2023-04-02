@@ -2,14 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:middleman_all/Controller/data/admin_controller.dart';
 import 'package:middleman_all/Controller/data/courses_controller.dart';
-import 'package:middleman_all/Models/courses/course_category_model.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_button.dart';
-import 'package:middleman_all/View/widgets/custom_selection_list.dart';
-import 'package:middleman_all/View/widgets/custom_text.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
 import 'package:video_player/video_player.dart';
 
@@ -161,7 +157,7 @@ class _AddVideoState extends State<AddVideo> {
               :
           Padding(
               padding:const EdgeInsets.all(8.0),
-              child: OutlineButton(
+              child: OutlinedButton(
                 onPressed: ()=>getVideoFile(onVideoSelected: (File file)
                 {
                   _videoFile=file;
@@ -170,8 +166,8 @@ class _AddVideoState extends State<AddVideo> {
 
                   });});
                 }),
-                borderSide: BorderSide(
-                    color: Colors.grey.withOpacity(0.5), width: 1),
+                style:OutlinedButton.styleFrom(side: BorderSide(
+                    color: Colors.grey.withOpacity(0.5), width: 1)),
                 child: Icon(Icons.video_call,
                     size: 80, color: Colors.grey.withOpacity(.5)),
               )))
