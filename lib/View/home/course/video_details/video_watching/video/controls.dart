@@ -1,8 +1,9 @@
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+
 class CustomOrientationControls extends StatelessWidget {
   const CustomOrientationControls(
-      {Key? key, this.iconSize = 20, this.fontSize = 12})
+      {Key? key, this.iconSize = 25, this.fontSize = 14})
       : super(key: key);
   final double iconSize;
   final double fontSize;
@@ -35,7 +36,8 @@ class CustomOrientationControls extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.white, fontSize: fontSize),
                           ),
-                          FlickTotalDuration(                            fontSize: fontSize,
+                          FlickTotalDuration(
+                            fontSize: fontSize,
                           ),
                         ],
                       ),

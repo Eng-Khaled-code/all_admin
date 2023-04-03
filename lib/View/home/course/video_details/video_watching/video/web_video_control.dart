@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flick_video_player/flick_video_player.dart';
-import 'package:provider/provider.dart';
-
 
 /// Default portrait controls.
 class WebVideoControl extends StatelessWidget {
-  const WebVideoControl(
-      {Key? key,
-      this.iconSize = 20,
-      this.fontSize = 12,
-      this.progressBarSettings,})
-      : super(key: key);
+  const WebVideoControl({
+    Key? key,
+    this.iconSize = 20,
+    this.fontSize = 12,
+    this.progressBarSettings,
+  }) : super(key: key);
 
   /// Icon size.
   ///
@@ -37,7 +35,9 @@ class WebVideoControl extends StatelessWidget {
             top: 0,
             child: Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 20,),
+              padding: const EdgeInsets.only(
+                top: 20,
+              ),
               child: const FlickAnimatedVolumeLevel(
                 decoration: BoxDecoration(
                   color: Colors.black26,
@@ -91,7 +91,8 @@ class WebVideoControl extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Expanded(                            child: Container(),
+                          Expanded(
+                            child: Container(),
                           ),
                           FlickFullScreenToggle(
                             size: iconSize,

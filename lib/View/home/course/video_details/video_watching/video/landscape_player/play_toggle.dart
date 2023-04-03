@@ -40,7 +40,7 @@ class LandscapePlayToggle extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(50),
-        splashColor: Color.fromRGBO(108, 165, 242, 0.5),
+        splashColor: const Color.fromRGBO(108, 165, 242, 0.5),
         key: key,
         onTap: () {
           videoManager.isVideoEnded
@@ -51,7 +51,7 @@ class LandscapePlayToggle extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
           ),
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: child,
         ),
       ),

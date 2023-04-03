@@ -3,14 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
-import 'package:middleman_all/View/home/course/video_details/video_watching/video/animation_player/animation_player.dart';
 import 'package:middleman_all/View/home/course/video_details/video_watching/video/web_video_control.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'controls.dart';
 import 'landscape_player/landscape_player.dart';
+
 class VideoWidget extends StatefulWidget {
-  const VideoWidget({Key? key,this.videoPlayerController}) : super(key: key);
+  const VideoWidget({Key? key, this.videoPlayerController}) : super(key: key);
   final VideoPlayerController? videoPlayerController;
 
   @override
@@ -18,23 +18,21 @@ class VideoWidget extends StatefulWidget {
 }
 
 class _VideoWidgetState extends State<VideoWidget> {
-
   final List<String> samples = [
     'Default player',
-    'Animation player',
     'Custom orientation player',
-   'Landscape player',
+    'Landscape player',
   ];
 
   int selectedIndex = 0;
 
   changeSample(int index) {
-
-
-    if (index==3) {
-      Get.to(LandscapePlayer(),);
-    } else{
-      setState(()=>selectedIndex = index);
+    if (index == 2) {
+      Get.to(
+        LandscapePlayer(flickManager: flickManager),
+      );
+    } else {
+      setState(() => selectedIndex = index);
     }
   }
 
@@ -43,65 +41,59 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-    flickManager = FlickManager(videoPlayerController:widget.videoPlayerController!);
+    flickManager =
+        FlickManager(videoPlayerController: widget.videoPlayerController!);
   }
 
   @override
   Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: ObjectKey(flickManager),
-      onVisibilityChanged: (visibility) {
-        if (visibility.visibleFraction == 0 && mounted) {
-          flickManager.flickControlManager?.autoPause();
-        } else if (visibility.visibleFraction == 1) {
-          flickManager.flickControlManager?.autoResume();
-        }
-      },
-      child: SizedBox(
-        height: Get.height*0.4,
-        child:kIsWeb?webVedio():_buildMobileView(),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: VisibilityDetector(
+        key: ObjectKey(flickManager),
+        onVisibilityChanged: (visibility) {
+          if (visibility.visibleFraction == 0 && mounted) {
+            flickManager.flickControlManager?.autoPause();
+          } else if (visibility.visibleFraction == 1) {
+            flickManager.flickControlManager?.autoResume();
+          }
+        },
+        child: SizedBox(
+          child: kIsWeb ? webVedio() : _buildMobileView(),
+        ),
       ),
     );
   }
 
-  FlickVideoPlayer webVedio(){
-    return  FlickVideoPlayer(
-                flickManager: flickManager,
-                flickVideoWithControls: FlickVideoWithControls(
-                  controls: WebVideoControl(
-                        iconSize: 30,
-                        fontSize: 14,
-                  progressBarSettings: FlickProgressBarSettings(
-                        height: 5,
-                        handleRadius: 5.5,
-                  ),
-                  ),
-                  videoFit: BoxFit.contain,
-                  // aspectRatioWhenLoading: 4 / 3,
-              ),
-  );
+  FlickVideoPlayer webVedio() {
+    return FlickVideoPlayer(
+      flickManager: flickManager,
+      flickVideoWithControls: FlickVideoWithControls(
+        controls: WebVideoControl(
+          iconSize: 30,
+          fontSize: 14,
+          progressBarSettings: FlickProgressBarSettings(
+            height: 5,
+            handleRadius: 5.5,
+          ),
+        ),
+        videoFit: BoxFit.contain,
+        // aspectRatioWhenLoading: 4 / 3,
+      ),
+    );
   }
-
 
   Widget _buildMobileView() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        selectedIndex== 0
-            ?
-        defaultVideo()
-            :
-        selectedIndex==1
-            ?
-        AnimationPlayer(flickManager: flickManager)
-            :
-        selectedIndex==2
-            ?
-        orientationPlayer()
-            :
-        Container(),
+        selectedIndex == 0
+            ? defaultVideo()
+            : selectedIndex == 1
+                ? orientationPlayer()
+                : Container(),
         Container(
-          height: 80,
+          height: 60,
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
@@ -116,7 +108,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                     },
                     child: Center(
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: Text(
                           samples[index],
                           style: TextStyle(
@@ -124,7 +116,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                                 ? const Color.fromRGBO(100, 109, 236, 1)
                                 : const Color.fromRGBO(173, 176, 183, 1),
                             fontWeight:
-                            index == selectedIndex ? FontWeight.bold : null,
+                                index == selectedIndex ? FontWeight.bold : null,
                           ),
                         ),
                       ),
@@ -137,15 +129,15 @@ class _VideoWidgetState extends State<VideoWidget> {
     );
   }
 
-  orientationPlayer(){
+  orientationPlayer() {
     return FlickVideoPlayer(
       flickManager: flickManager,
-      preferredDeviceOrientationFullscreen:const [
+      preferredDeviceOrientationFullscreen: const [
         DeviceOrientation.portraitUp,
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
       ],
-      flickVideoWithControls:const  FlickVideoWithControls(
+      flickVideoWithControls: const FlickVideoWithControls(
         controls: CustomOrientationControls(),
       ),
       flickVideoWithControlsFullscreen: const FlickVideoWithControls(
@@ -160,7 +152,10 @@ class _VideoWidgetState extends State<VideoWidget> {
       flickManager: flickManager,
       flickVideoWithControls: const FlickVideoWithControls(
         closedCaptionTextStyle: TextStyle(fontSize: 8),
-        controls: FlickPortraitControls(),
+        controls: FlickPortraitControls(
+          iconSize: 30,
+          fontSize: 15,
+        ),
       ),
       flickVideoWithControlsFullscreen: const FlickVideoWithControls(
         controls: FlickLandscapeControls(),

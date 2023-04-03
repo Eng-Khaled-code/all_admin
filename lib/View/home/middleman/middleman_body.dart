@@ -5,7 +5,7 @@ import 'middleman_dashboard.dart';
 import 'user_operations.dart';
 
 class Middleman extends StatefulWidget {
-   Middleman({Key? key}) : super(key: key);
+  const Middleman({Key? key}) : super(key: key);
 
   @override
   State<Middleman> createState() => _MiddlemanState();
@@ -14,17 +14,10 @@ class Middleman extends StatefulWidget {
 class _MiddlemanState extends State<Middleman> {
   @override
   Widget build(BuildContext context) {
-    return
-      currentIndex ==2
-          ?
-      const UserOperations():
-      currentIndex ==0
-          ?
-      MiddlemanDashboard()
-          :
-      PlacesPage();
-
-
+    return currentIndex == 2
+        ? const UserOperations()
+        : currentIndex == 0
+            ? MiddlemanDashboard()
+            : PlacesPage();
   }
 }
-

@@ -1,4 +1,3 @@
-
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,8 +33,9 @@ class LandscapePlayerControls extends StatelessWidget {
                 Expanded(
                   child: Container(),
                 ),
-                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   color: const Color.fromRGBO(0, 0, 0, 0.4),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,12 +53,12 @@ class LandscapePlayerControls extends StatelessWidget {
                         width: 10,
                       ),
                       Expanded(
-                        child: Container(
+                        child: SizedBox(
                           child: FlickVideoProgressBar(
                             flickProgressBarSettings: FlickProgressBarSettings(
                               height: 10,
                               handleRadius: 10,
-                              padding:const EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0,
                                 vertical: 8,
                               ),
@@ -89,7 +89,7 @@ class LandscapePlayerControls extends StatelessWidget {
                                   double? playedPart,
                                   double? width}) {
                                 return Paint()
-                                  ..shader =const RadialGradient(
+                                  ..shader = const RadialGradient(
                                     colors: [
                                       Color.fromRGBO(97, 104, 236, 1),
                                       Color.fromRGBO(97, 104, 236, 1),
@@ -135,7 +135,7 @@ class LandscapePlayerControls extends StatelessWidget {
                   [DeviceOrientation.portraitUp]);
               Navigator.pop(context);
             },
-            child: Icon(
+            child: const Icon(
               Icons.cancel,
               size: 30,
             ),

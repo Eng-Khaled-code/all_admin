@@ -12,30 +12,16 @@ class Admin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      currentIndex==0
-          ?
-      AdminDashboard()
-          :
-      currentIndex==1
-          ?
-       EcommercePage()
-          :
-       currentIndex==2
-              ?
-       CoursesAdminPage()
-              :
-       currentIndex==3
-          ?
-       MiddlemanPage()
-          :
-      currentIndex==4||currentIndex==5
-              ?
-       MissedPage()
-              :
-      Container();
-
-
+    return currentIndex == 0
+        ? AdminDashboard()
+        : currentIndex == 1
+            ? EcommercePage()
+            : currentIndex == 2
+                ? const CoursesAdminPage()
+                : currentIndex == 3
+                    ? MiddlemanPage()
+                    : currentIndex == 4 || currentIndex == 5
+                        ? MissedPage()
+                        : Container();
   }
 }
-

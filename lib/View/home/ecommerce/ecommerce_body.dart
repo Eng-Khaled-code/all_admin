@@ -13,30 +13,16 @@ class Ecommerce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      currentIndex==2
-          ?
-      EcommerceOperations()
-          :
-      currentIndex==1
-          ?
-      const ProductPage()
-          :
-      currentIndex==4
-          ?
-      DiscountPage()
-          :
-      currentIndex==0
-          ?
-      EcommerceDashboard()
-          :
-      currentIndex==3
-          ?
-      OrdersPage()
-          :
-      Container();
-
-
+    return currentIndex == 2
+        ? const EcommerceOperations()
+        : currentIndex == 1
+            ? const ProductPage()
+            : currentIndex == 4
+                ? DiscountPage()
+                : currentIndex == 0
+                    ? EcommerceDashboard()
+                    : currentIndex == 3
+                        ? OrdersPage()
+                        : Container();
   }
 }
-

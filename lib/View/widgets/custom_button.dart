@@ -6,31 +6,28 @@ class CustomButton extends StatefulWidget {
   final Function()? onPress;
   final Color? textColor;
   final double? width;
-  CustomButton(
-      {@required this.color,
+  const CustomButton(
+      {Key? key,
+      @required this.color,
       @required this.text,
       required this.onPress,
       @required this.textColor,
-      this.width=double.infinity});
+      this.width = double.infinity})
+      : super(key: key);
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
 }
 
-
 class _CustomButtonState extends State<CustomButton>
     with SingleTickerProviderStateMixin {
-
-
   AnimationController? _controller;
 
   @override
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(
-seconds: 1
-      ),
+      duration: const Duration(seconds: 1),
       lowerBound: 0.0,
       upperBound: 1.0,
     )..addListener(() {
@@ -48,20 +45,18 @@ seconds: 1
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: widget.onPress,
       child: Opacity(
         opacity: _controller!.value,
         child: Container(
-         padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           width: widget.width,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [widget.color![0], widget.color![1]]),
-
               borderRadius: BorderRadius.circular(20.0)),
           child: Center(
             child: Text(

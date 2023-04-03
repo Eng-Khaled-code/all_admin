@@ -8,58 +8,58 @@ import '../../../utilities/strings.dart';
 import 'category_card.dart';
 
 class CategoryPage extends StatefulWidget {
+  const CategoryPage({Key? key}) : super(key: key);
+
   @override
   State<CategoryPage> createState() => _CategoryPageState();
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  final AdminController _adminController=Get.find();
+  final AdminController _adminController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-        children:[
-      _categoryTypeWidget(),
-      _dataWidget()
-    ]
-    );
+    return Column(children: [_categoryTypeWidget(), _dataWidget()]);
   }
 
-   _dataWidget(){
+  _dataWidget() {
     return Expanded(
-        child:RefreshIndicator(
-      onRefresh: ()async{
-      await _adminController.operations(moduleName: "category",operationType: "load");
-      setState(() {
-      });
-      },
-      child: Obx(()=>
-
-    _adminController.isLoading.value
-          ?
-    loadingWidget()
-          :
-    categoriesList.isEmpty
-          ?
-    noDataCard(text: "لا توجد اقسام",icon: Icons.category)
-          :SizedBox(
-        child: ListView.builder(
-            itemCount:categoriesList.length,
-            itemBuilder: (context,position){
-              CategoryModel _model=CategoryModel.fromSnapshot(categoriesList[position]);
-              return CategoryCard(model:_model,adminController: _adminController,);
-            }
+      child: RefreshIndicator(
+        onRefresh: () async {
+          await _adminController.operations(
+              moduleName: "category", operationType: "load");
+          setState(() {});
+        },
+        child: Obx(
+          () => _adminController.isLoading.value
+              ? loadingWidget()
+              : categoriesList.isEmpty
+                  ? noDataCard(text: "لا توجد اقسام", icon: Icons.category)
+                  : SizedBox(
+                      child: ListView.builder(
+                          itemCount: categoriesList.length,
+                          itemBuilder: (context, position) {
+                            CategoryModel _model = CategoryModel.fromSnapshot(
+                                categoriesList[position]);
+                            return CategoryCard(
+                              model: _model,
+                              adminController: _adminController,
+                            );
+                          }),
+                    ),
         ),
-    ),),
       ),
     );
   }
 
   CustomSelectionList _categoryTypeWidget() {
-    return CustomSelectionList(list:const["تسوق","كورسات"] ,listType: "cate",onTap:  (String? text)async{
-    setState(()=> Strings.categoryType=text!);
-    await _adminController.operations(moduleName: "category",operationType: "load");
-
-    });
+    return CustomSelectionList(
+        list: const ["تسوق", "كورسات"],
+        listType: "cate",
+        onTap: (String? text) async {
+          setState(() => Strings.categoryType = text!);
+          await _adminController.operations(
+              moduleName: "category", operationType: "load");
+        });
   }
 }

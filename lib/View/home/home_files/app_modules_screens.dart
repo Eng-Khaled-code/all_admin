@@ -1,4 +1,3 @@
-
 import 'package:middleman_all/View/home/admin_full_access/admin_full_access.dart';
 import 'package:middleman_all/View/home/middleman/middleman_body.dart';
 import '../admin/admin.dart';
@@ -10,18 +9,16 @@ import 'package:middleman_all/View/home/ecommerce/ecommerce_body.dart';
 loadingAppBody({String? userType}) {
   switch (userType) {
     case "middleman":
-      return  Middleman();
+      return const Middleman();
     case "course_admin":
-      return  CoursesSwitch();
+      return CoursesSwitch();
     case "ecommerce":
-      return  Ecommerce();
+      return Ecommerce();
     case "doctor":
-      return  Doctor();
+      return Doctor();
     case "admin":
-      return  Admin();
+      return Admin();
     case "full_access":
-      return  AdminFullAccess();
-
+      return AdminFullAccess();
   }
 }
-

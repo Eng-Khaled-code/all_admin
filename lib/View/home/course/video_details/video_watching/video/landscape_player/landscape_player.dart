@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'landscape_player_controls.dart';
 
 class LandscapePlayer extends StatefulWidget {
-  const LandscapePlayer({Key? key,this.flickManager}) : super(key: key);
+  const LandscapePlayer({Key? key, this.flickManager}) : super(key: key);
   final FlickManager? flickManager;
 
   @override
@@ -12,9 +12,6 @@ class LandscapePlayer extends StatefulWidget {
 }
 
 class _LandscapePlayerState extends State<LandscapePlayer> {
-
-
-
   @override
   void dispose() {
     widget.flickManager!.dispose();
@@ -26,11 +23,11 @@ class _LandscapePlayerState extends State<LandscapePlayer> {
     return Scaffold(
       body: FlickVideoPlayer(
         flickManager: widget.flickManager!,
-        preferredDeviceOrientation:const [
+        preferredDeviceOrientation: const [
           DeviceOrientation.landscapeRight,
           DeviceOrientation.landscapeLeft
         ],
-        systemUIOverlay: [],
+        systemUIOverlay: const [],
         flickVideoWithControls: const FlickVideoWithControls(
           controls: LandscapePlayerControls(),
         ),

@@ -14,36 +14,36 @@ class CustomText extends StatefulWidget {
 
   final int? maxLine;
 
-  CustomText({
-    this.text = '',
-    this.fontSize = 14,
-    this.color = primaryColor,
-    this.alignment = Alignment.center,
-    this.maxLine=2,
-    this.fontWeight = FontWeight.normal,
-    this.textAlign=TextAlign.center
-  });
+  const CustomText(
+      {Key? key,
+      this.text = '',
+      this.fontSize = 14,
+      this.color = primaryColor,
+      this.alignment = Alignment.center,
+      this.maxLine = 2,
+      this.fontWeight = FontWeight.normal,
+      this.textAlign = TextAlign.center})
+      : super(key: key);
 
   @override
   State<CustomText> createState() => _CustomTextState();
 }
 
-class _CustomTextState extends State<CustomText> with SingleTickerProviderStateMixin{
-
+class _CustomTextState extends State<CustomText>
+    with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   @override
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration:const Duration(
+      duration: const Duration(
         seconds: 1,
       ),
       lowerBound: 0,
       upperBound: 1,
     )..addListener(() {
-      setState(() {
+        setState(() {});
       });
-    });
     _controller!.forward();
 
     super.initState();
@@ -55,7 +55,6 @@ class _CustomTextState extends State<CustomText> with SingleTickerProviderStateM
     _controller!.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,12 +62,11 @@ class _CustomTextState extends State<CustomText> with SingleTickerProviderStateM
       child: Opacity(
         opacity: _controller!.value,
         child: Text(
-          widget.text,textAlign: widget.textAlign,
+          widget.text,
+          textAlign: widget.textAlign,
           overflow: TextOverflow.ellipsis,
           maxLines: widget.maxLine,
-
           style: TextStyle(
-
             color: widget.color,
             fontWeight: widget.fontWeight,
             fontSize: widget.fontSize,

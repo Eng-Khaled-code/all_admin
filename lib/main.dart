@@ -10,6 +10,7 @@ main() async {
   await GetStorage.init();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -21,15 +22,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           appBarTheme: AppBarTheme(
               elevation: 0.0,
-              color:Colors.grey[300] ,
+              color: Colors.grey[300],
               centerTitle: true,
-              iconTheme: const IconThemeData(color: primaryColor)
-          ),
-          primaryColor:primaryColor ,
+              iconTheme: const IconThemeData(color: primaryColor)),
+          primaryColor: primaryColor,
           scaffoldBackgroundColor: Colors.grey[300],
-          fontFamily: "my_font" ),
+          fontFamily: "my_font"),
       getPages: [
-        GetPage(name: "/",page:()=>Directionality(textDirection: TextDirection.rtl,child: LogIn())),//,binding: MyBindings()),
+        GetPage(
+            name: "/",
+            page: () => const Directionality(
+                textDirection: TextDirection.rtl,
+                child: LogIn())), //,binding: MyBindings()),
       ],
       initialBinding: MyBindings(),
     );
