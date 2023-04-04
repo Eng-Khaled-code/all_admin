@@ -9,6 +9,8 @@ import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../widgets/helper_methods.dart';
+
 // ignore: must_be_immutable
 class AddVideo extends StatefulWidget {
   final int? videoId;
@@ -47,7 +49,8 @@ class _AddVideoState extends State<AddVideo> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Helper.isDarkMode(context) ? Colors.black : Colors.white,
         appBar: customAppbar(
             title: widget.opeType == "add" ? "إضافة فيديو" : "تعديل الفيديو",
             actions: Container()),

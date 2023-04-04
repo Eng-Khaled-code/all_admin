@@ -8,8 +8,8 @@ import 'package:middleman_all/View/home/ecommerce/discount/operation_dialog.dart
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
-
 import '../../../utilities/strings.dart';
+import '../../../widgets/helper_methods.dart';
 
 // ignore: must_be_immutable
 class CourseCard extends StatefulWidget {
@@ -140,9 +140,7 @@ class _CourseCardState extends State<CourseCard> {
                   : TextDecoration.none),
         ),
         decoration: BoxDecoration(
-          color: widget.model!.discountStatus == 1
-              ? Colors.red
-              : Colors.greenAccent,
+          color: widget.model!.discountStatus == 1 ? Colors.red : primaryColor,
           borderRadius: BorderRadius.circular(10),
         ),
       ),
@@ -201,7 +199,7 @@ class _CourseCardState extends State<CourseCard> {
       },
       child: CustomText(
         text: widget.model!.name!,
-        color: Colors.black,
+        color: Helper.isDarkMode(context) ? Colors.white : Colors.black,
         fontWeight: FontWeight.bold,
         maxLine: 1,
         textAlign: TextAlign.right,
@@ -234,15 +232,15 @@ class _CourseCardState extends State<CourseCard> {
         likeWidget(
             counter: widget.model!.usersCount.toString(),
             icon: Icons.person,
-            iconColor: Colors.green),
+            iconColor: Colors.grey),
         likeWidget(
             counter: widget.model!.rate.toString(),
             icon: Icons.star,
-            iconColor: Colors.orange),
+            iconColor: Colors.grey),
         likeWidget(
             counter: widget.model!.videosCount.toString(),
             icon: Icons.video_library,
-            iconColor: Colors.orange),
+            iconColor: Colors.grey),
       ],
     );
   }
@@ -419,13 +417,13 @@ class _CourseCardState extends State<CourseCard> {
             text: "  الساعة =>  " +
                 date.substring(date.length - 8, date.length - 3),
             maxLine: 1,
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 12,
           ),
           CustomText(
             text: date.substring(0, date.length - 8),
             maxLine: 1,
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 12,
           ),
         ],

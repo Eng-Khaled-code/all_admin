@@ -111,13 +111,13 @@ class _VideoCardState extends State<VideoCard> {
             text: "  الساعة =>  " +
                 date.substring(date.length - 8, date.length - 3),
             maxLine: 1,
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 12,
           ),
           CustomText(
             text: date.substring(0, date.length - 8),
             maxLine: 1,
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 12,
           ),
         ],

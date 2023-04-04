@@ -7,9 +7,9 @@ import '../fonts.dart';
 ThemeData darkThemeData() => ThemeData(
       primaryColor: DarkColors.primary,
       brightness: Brightness.dark,
-      //accentColor:  DarkColors.accent,
       dividerColor: DarkColors.divider,
-      fontFamily: Fonts.signatraFont,
+      accentColor: DarkColors.primary,
+      fontFamily: Fonts.mainFontFamily,
       cupertinoOverrideTheme:
           const CupertinoThemeData(brightness: Brightness.dark),
       scaffoldBackgroundColor: DarkColors.background,

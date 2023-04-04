@@ -9,6 +9,7 @@ import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
+import '../../widgets/helper_methods.dart';
 
 class AddCourse extends StatefulWidget {
   const AddCourse({Key? key}) : super(key: key);
@@ -37,7 +38,8 @@ class _AddCourseState extends State<AddCourse> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Helper.isDarkMode(context) ? Colors.black : Colors.white,
         appBar: customAppbar(title: "إضافة كورس", actions: Container()),
         body: Obx(
           () => Padding(
@@ -172,7 +174,7 @@ class _AddCourseState extends State<AddCourse> {
                 color: con ? primaryColor : Colors.transparent),
             child: CustomText(
               text: model.name!,
-              color: con ? Colors.white : Colors.black,
+              color: con ? Colors.white : Colors.grey,
               alignment: Alignment.topCenter,
             )));
   }

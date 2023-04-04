@@ -8,6 +8,7 @@ import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 import '../utilities/strings.dart';
+import '../widgets/helper_methods.dart';
 import 'custom_dropdown_button.dart';
 import 'profile_constant.dart';
 
@@ -26,9 +27,10 @@ class ProfilePage extends StatelessWidget {
       child: Scaffold(
         appBar:
             customAppbar(title: "تحديث البيانات الشخصية", actions: Container()),
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Helper.isDarkMode(context) ? Colors.black : Colors.white,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Obx(
@@ -42,9 +44,13 @@ class ProfilePage extends StatelessWidget {
                     text: "${Strings.userInformation!.value.email}",
                   ),
                   _userType != "full_access" ? _rateWidget() : Container(),
-                  _userType != "full_access" ? _dataWidget() : Container(),
-                  _userType != "full_access" ? _typeWidgets() : Container(),
-                  _phoneWidget(),
+                  _userType != "full_access"
+                      ? _dataWidget(context)
+                      : Container(),
+                  _userType != "full_access"
+                      ? _typeWidgets(context)
+                      : Container(),
+                  _phoneWidget(context),
                   Strings.userInformation!.value.userType == "doctor"
                       ? _workDaysWidget(context)
                       : Container(),
@@ -57,11 +63,13 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _phoneWidget() {
+  Widget _phoneWidget(BuildContext context) {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          color: primaryColor, borderRadius: BorderRadius.circular(10)),
+          color:
+              Helper.isDarkMode(context) ? Get.theme.cardColor : primaryColor,
+          borderRadius: BorderRadius.circular(10)),
       padding: const EdgeInsets.symmetric(horizontal: 5),
       margin: const EdgeInsets.all(5),
       child: Column(
@@ -129,7 +137,9 @@ class ProfilePage extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10),
                               height: 30,
                               decoration: BoxDecoration(
-                                  color: primaryColor,
+                                  color: Helper.isDarkMode(context)
+                                      ? Get.theme.cardColor
+                                      : primaryColor,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.white)),
                               child: Row(
@@ -220,7 +230,9 @@ class ProfilePage extends StatelessWidget {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          color: primaryColor, borderRadius: BorderRadius.circular(10)),
+          color:
+              Helper.isDarkMode(context) ? Get.theme.cardColor : primaryColor,
+          borderRadius: BorderRadius.circular(10)),
       padding: const EdgeInsets.symmetric(horizontal: 5),
       margin: const EdgeInsets.all(5),
       child: Column(
@@ -289,11 +301,13 @@ class ProfilePage extends StatelessWidget {
     }, true);
   }
 
-  Widget _dataWidget() {
+  Widget _dataWidget(BuildContext context) {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          color: primaryColor, borderRadius: BorderRadius.circular(10)),
+          color:
+              Helper.isDarkMode(context) ? Get.theme.cardColor : primaryColor,
+          borderRadius: BorderRadius.circular(10)),
       padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.all(5),
       child: Column(
@@ -312,7 +326,8 @@ class ProfilePage extends StatelessWidget {
                   ? prfileLoadingWidget(Colors.white)
                   : _nameAddressField(
                       nameOrAddress: "username",
-                      value: Strings.userInformation!.value.userName!)
+                      value: Strings.userInformation!.value.userName!,
+                      context: context)
             ],
           ),
           const SizedBox(height: 10),
@@ -328,31 +343,36 @@ class ProfilePage extends StatelessWidget {
                   ? prfileLoadingWidget(Colors.white)
                   : _nameAddressField(
                       nameOrAddress: "address",
-                      value: Strings.userInformation!.value.address!)
+                      value: Strings.userInformation!.value.address!,
+                      context: context)
             ],
           ),
           const SizedBox(height: 10),
-          Row(
-            children: [
-              const CustomText(
-                text: "التخصص",
-                color: Colors.white,
-                alignment: Alignment.centerRight,
-              ),
-              const SizedBox(width: 15),
-              _userController.isAboutDoctor.value
-                  ? prfileLoadingWidget(Colors.white)
-                  : _nameAddressField(
-                      nameOrAddress: "about_doctor",
-                      value: Strings.userInformation!.value.aboutDoctor!)
-            ],
-          )
+          _userController.isAboutDoctor.value
+              ? Row(
+                  children: [
+                    const CustomText(
+                      text: "التخصص",
+                      color: Colors.white,
+                      alignment: Alignment.centerRight,
+                    ),
+                    const SizedBox(width: 15),
+                    _userController.isAboutDoctor.value
+                        ? prfileLoadingWidget(Colors.white)
+                        : _nameAddressField(
+                            nameOrAddress: "about_doctor",
+                            value: Strings.userInformation!.value.aboutDoctor!,
+                            context: context)
+                  ],
+                )
+              : Container()
         ],
       ),
     );
   }
 
-  Widget _nameAddressField({String? nameOrAddress, String? value}) {
+  Widget _nameAddressField(
+      {String? nameOrAddress, String? value, BuildContext? context}) {
     return InkWell(
       onTap: () {
         myCustomDialog(
@@ -366,7 +386,9 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.only(left: 10, right: 10),
         height: 30,
         decoration: BoxDecoration(
-            color: primaryColor,
+            color: Helper.isDarkMode(context!)
+                ? Get.theme.cardColor
+                : primaryColor,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.white)),
         child: CustomText(
@@ -412,9 +434,11 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _typeWidgets() => Container(
+  Widget _typeWidgets(BuildContext context) => Container(
       decoration: BoxDecoration(
-          color: primaryColor, borderRadius: BorderRadius.circular(10)),
+          color:
+              Helper.isDarkMode(context) ? Get.theme.cardColor : primaryColor,
+          borderRadius: BorderRadius.circular(10)),
       padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
       margin: const EdgeInsets.all(5),
       width: double.infinity,
@@ -496,6 +520,8 @@ class ProfilePage extends StatelessWidget {
       child: CustomText(text: text!, color: Colors.white));
 
   Widget _imageWidget() {
+    String imageUrl = Strings.userImagesDirectoryUrl +
+        Strings.userInformation!.value.imageUrl!;
     return InkWell(
         onTap: () {
           _userType == "full_access" ? () {} : _uploadImage();
@@ -513,12 +539,23 @@ class ProfilePage extends StatelessWidget {
                     ),
                   )
                 : Image.network(
-                    Strings.userInformation!.value.imageUrl == ""
+                    Strings.userInformation!.value.imageUrl == "" ||
+                            Strings.userInformation!.value.imageUrl == null
                         ? Strings.appIconUrl
-                        : Strings.userInformation!.value.imageUrl!,
+                        : imageUrl,
                     fit: BoxFit.cover),
           ),
         ));
+  }
+
+  void _uploadImage() {
+    getImageFile(onFileSelected: (File file) {
+      String addOrUpdate = Strings.userInformation!.value.imageUrl == "" ||
+              Strings.userInformation!.value.imageUrl == null
+          ? "add"
+          : "update";
+      _userController.updateImage(image: file, addOrUpdatePhoto: addOrUpdate);
+    });
   }
 
   Widget _topUsernameWidget() {
@@ -629,15 +666,5 @@ class ProfilePage extends StatelessWidget {
       timeController.text =
           picked.hour.toString() + ":" + picked.minute.toString();
     }
-  }
-
-  void _uploadImage() {
-    getImageFile(onFileSelected: (File file) {
-      String addOrUpdate =
-          Strings.userInformation!.value.imageUrl == Strings.appIconUrl
-              ? "add"
-              : "update";
-      _userController.updateImage(image: file, addOrUpdatePhoto: addOrUpdate);
-    });
   }
 }

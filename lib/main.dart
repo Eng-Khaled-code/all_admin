@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:middleman_all/View/auth/log_in.dart';
-import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:get_storage/get_storage.dart';
+import 'Controller/data/theme_controller.dart';
+import 'View/utilities/themes/app_thems/dark_them_data.dart';
+import 'View/utilities/themes/app_thems/light_them_data.dart';
 import 'start_point/binding.dart';
 
 main() async {
@@ -19,15 +21,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Middleman All',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          appBarTheme: AppBarTheme(
-              elevation: 0.0,
-              color: Colors.grey[300],
-              centerTitle: true,
-              iconTheme: const IconThemeData(color: primaryColor)),
-          primaryColor: primaryColor,
-          scaffoldBackgroundColor: Colors.grey[300],
-          fontFamily: "my_font"),
+      theme: lightThemeData(),
+      darkTheme: darkThemeData(),
+      themeMode: ThemeController().getThemeMode(),
       getPages: [
         GetPage(
             name: "/",

@@ -6,6 +6,8 @@ import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
 
+import '../../../../widgets/helper_methods.dart';
+
 // ignore: must_be_immutable
 class AddQuestion extends StatefulWidget {
   final int? videoId;
@@ -44,7 +46,8 @@ class _AddQuestionState extends State<AddQuestion> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Helper.isDarkMode(context) ? Colors.black : Colors.white,
         appBar: customAppbar(
             title: widget.opeType == "add" ? "إضافة سؤال" : "تعديل السؤال",
             actions: Container()),

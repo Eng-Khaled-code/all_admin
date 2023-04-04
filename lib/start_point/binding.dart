@@ -11,7 +11,6 @@ class MyBindings implements Bindings {
   void dependencies() {
     //data controllers
     Get.put(UserController(), permanent: true);
-    //Get.put(ThemeController(),permanent: true);
     Get.lazyPut(() => MiddlemanController(), fenix: true);
     Get.lazyPut(() => EcommerceController(), fenix: true);
     Get.lazyPut(() => DoctorController(), fenix: true);

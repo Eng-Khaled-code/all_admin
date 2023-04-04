@@ -1,5 +1,3 @@
-
-
 class Fonts {
-  static const String signatraFont="signatra";
+  static const String mainFontFamily = "my_font";
 }

@@ -1,6 +1,4 @@
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 import 'package:middleman_all/Controller/data/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +30,7 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Get.isDarkMode ? Colors.black : Colors.white,
       body: Form(
         key: _formKey,
         child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -177,7 +175,8 @@ class _LogInState extends State<LogIn> {
         text: "للتواصل إضغط هنا",
         fontSize: 16,
       ),
-      onPressed: () async => await launchUrl(Uri(scheme: "tel://01159245717")),
+      onPressed: () async =>
+          await launchUrl(Uri(scheme: "tel", path: "tel://01159245717")),
     );
   }
 

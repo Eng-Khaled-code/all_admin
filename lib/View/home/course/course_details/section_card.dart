@@ -46,7 +46,7 @@ class SectionCard extends StatelessWidget {
             Fluttertoast.showToast(
                 msg: "لا يمكنك حذف هذا السكشن لانه يحتوي علي فيديوهات");
           } else {
-            Navigator.pop(context);
+            Get.back();
             await coursesController!.sectionOperations(
                 type: "delete",
                 courseId: sectionModel!.courseId,

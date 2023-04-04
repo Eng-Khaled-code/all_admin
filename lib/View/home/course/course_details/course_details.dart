@@ -54,7 +54,6 @@ class CourseDetails extends StatelessWidget {
                     text: courseModel!.name!,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -69,7 +68,6 @@ class CourseDetails extends StatelessWidget {
                     text: "السكاشن",
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
                   ),
                   _dataWidget(),
                 ],

@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constant.dart';
+import 'helper_methods.dart';
 
 class CustomText extends StatefulWidget {
   final String text;
@@ -67,7 +67,7 @@ class _CustomTextState extends State<CustomText>
           overflow: TextOverflow.ellipsis,
           maxLines: widget.maxLine,
           style: TextStyle(
-            color: widget.color,
+            color: Helper.isDarkMode(context) ? Colors.white : widget.color,
             fontWeight: widget.fontWeight,
             fontSize: widget.fontSize,
           ),

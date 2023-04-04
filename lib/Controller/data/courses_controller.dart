@@ -271,6 +271,9 @@ class CoursesController extends GetxController {
           : () {};
 
       videoList = resultMap['data'];
+      if (type == "add" || type == "update") {
+        Get.back();
+      }
     } else {
       Fluttertoast.showToast(msg: errorTranslation(resultMap["message"]));
     }

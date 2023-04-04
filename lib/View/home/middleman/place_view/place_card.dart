@@ -254,8 +254,7 @@ class _PlaceCardState extends State<PlaceCard> {
                         adminProfileWidget(
                             name: "${discussModel.userName}",
                             image: discussModel.imageUrl,
-                            date: discussModel.date,
-                            color: Colors.white),
+                            date: discussModel.date),
                         discussModel.status == "buy"
                             ? const Icon(Icons.check, color: Colors.white)
                             : Container()

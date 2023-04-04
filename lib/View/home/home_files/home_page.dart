@@ -10,7 +10,7 @@ import 'package:middleman_all/View/home/course/add_course.dart';
 import 'package:middleman_all/View/home/middleman/user_operations.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
-import 'package:middleman_all/View/widgets/drawer.dart';
+import '../../drawer/drawer.dart';
 import '../../utilities/strings.dart';
 import '../ecommerce/discount/operation_dialog.dart';
 import 'app_modules_screens.dart';
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
               key: _key,
               appBar: _appBar(),
               bottomNavigationBar: _navBar(),
-              drawer: CustomDrawer(),
+              drawer: const MyDrawer(),
               body: loadingAppBody(userType: _userType),
               floatingActionButton: _userType == "full_access"
                   ? _floatingActionButton()
@@ -119,7 +119,6 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: primaryColor),
-        color: Colors.white,
       ),
       child: IconButton(
           icon: const Icon(
@@ -134,7 +133,6 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: primaryColor),
-        color: Colors.white,
       ),
       child: IconButton(
           icon: const Icon(
@@ -270,10 +268,6 @@ class _HomePageState extends State<HomePage> {
             setTitle();
             setState(() {});
           },
-          selectedItemColor: primaryColor,
-          unselectedItemColor: Colors.black45,
-          unselectedLabelStyle:
-              const TextStyle(color: Colors.black45, fontSize: 9),
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ));

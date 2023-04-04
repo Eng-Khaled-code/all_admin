@@ -132,12 +132,13 @@ Container coloredContainer({String? text, Color color = primaryColor}) {
   );
 }
 
-Row adminProfileWidget(
-    {String? name = "",
-    String? image = "",
-    String? date,
-    Color? color = Colors.black,
-    String? opertionType = ""}) {
+Row adminProfileWidget({
+  String? name = "",
+  String? image = "",
+  String? date,
+  String? opertionType = "",
+  BuildContext? context,
+}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -157,14 +158,11 @@ Row adminProfileWidget(
         children: [
           CustomText(
             text: name!,
-            color: color!,
             alignment: Alignment.centerRight,
             fontWeight: FontWeight.bold,
             maxLine: 1,
           ),
-          date == ""
-              ? Container()
-              : customDateWidget(date: date, textColor: color),
+          date == "" ? Container() : customDateWidget(date: date),
           opertionType == ""
               ? Container()
               : Container(
@@ -186,8 +184,7 @@ Row adminProfileWidget(
   );
 }
 
-customDateWidget(
-    {String? date, Color? textColor = Colors.black, double? fontSize = 12}) {
+customDateWidget({String? date, double? fontSize = 12}) {
   return Directionality(
       textDirection: TextDirection.ltr,
       child: Row(
@@ -196,14 +193,14 @@ customDateWidget(
           CustomText(
             text: "  الساعة =>  " +
                 date!.substring(date.length - 8, date.length - 3),
-            color: textColor!,
+            color: Colors.grey,
             alignment: Alignment.bottomRight,
             fontSize: fontSize!,
             maxLine: 1,
           ),
           CustomText(
             text: date.substring(0, date.length - 8),
-            color: textColor,
+            color: Colors.grey,
             alignment: Alignment.bottomRight,
             fontSize: fontSize,
             maxLine: 1,
@@ -235,7 +232,6 @@ Container imageWidget(
 
 AppBar customAppbar({String? title, Widget? actions}) {
   return AppBar(
-    backgroundColor: Colors.white,
     title: CustomText(
       text: title!,
       alignment: Alignment.centerRight,

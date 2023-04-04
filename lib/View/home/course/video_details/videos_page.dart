@@ -64,7 +64,7 @@ class VideosPage extends StatelessWidget {
 
   FloatingActionButton _myFloatAB() {
     return FloatingActionButton.extended(
-        onPressed: () => Get.to(AddVideo(
+        onPressed: () => Get.to(() => AddVideo(
             coursesController: coursesController,
             courseId: sectionModel!.courseId,
             secId: sectionModel!.id,
