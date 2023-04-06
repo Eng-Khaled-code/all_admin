@@ -10,6 +10,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../utilities/strings.dart';
 import '../../../widgets/custom_text.dart';
+import '../../../widgets/helper_methods.dart';
 import 'open_google_map.dart';
 
 class AddUser extends StatefulWidget {
@@ -42,7 +43,8 @@ class _AddUserState extends State<AddUser> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Helper.isDarkMode(context) ? Colors.black : Colors.white,
         appBar: customAppbar(title: "إضافة مستخدم جديد", actions: Container()),
         body: Obx(
           () => Padding(
@@ -164,11 +166,8 @@ class _AddUserState extends State<AddUser> {
         onPress: () async {
           _formKey.currentState!.save();
           if (_adminController.rxAddress.value == "") {
-            addressTextColor = Colors.red;
-            setState(() {});
-          } else {
-            addressTextColor = primaryColor;
-            setState(() {});
+            Get.snackbar("خطا", "يجب ان تدخل العنوان",
+                snackPosition: SnackPosition.BOTTOM);
           }
 
           if (_formKey.currentState!.validate() &&

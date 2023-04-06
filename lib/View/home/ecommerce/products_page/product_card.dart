@@ -6,6 +6,7 @@ import 'package:middleman_all/Models/ecommerce/product_model.dart';
 import 'package:middleman_all/View/home/ecommerce/discount/operation_dialog.dart';
 import 'package:middleman_all/View/home/ecommerce/operation_view/ecommerce_operations.dart';
 import 'package:middleman_all/View/home/home_files/home_page.dart';
+import 'package:middleman_all/View/utilities/strings.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
@@ -35,13 +36,13 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-      decoration: customDecoration(),
+      decoration: customDecoration(context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _topRow(),
           _stopWidget(),
-          imageWidget(image: widget.model!.imageUrl),
+          imageWidget(image: Strings.productImageDirectoryUrl+widget.model!.imageUrl!),
           _dataWidget(),
           _bottomRow()
         ],
@@ -74,15 +75,16 @@ class _ProductCardState extends State<ProductCard> {
   Widget _operationRow() {
     return operationRow(() {
       currentIndex = 2;
-      EcommerceOperations.addOrUpdate = "تعديل";
-      EcommerceOperations.productDescription = widget.model!.desc;
-      EcommerceOperations.quantity = widget.model!.quantity.toString();
-      EcommerceOperations.productId = widget.model!.productId;
-      EcommerceOperations.price = widget.model!.price;
-      EcommerceOperations.productName = widget.model!.name;
-      EcommerceOperations.productUnit = widget.model!.unit;
-      EcommerceOperations.imageUrl = widget.model!.imageUrl;
-      setState(() {});
+       Get.offAll(() => HomePage(middleManAddOrUpdate: EcommerceOperations(
+         addOrUpdate: "تعديل",
+         productDescription: widget.model!.desc ,
+         quantity:widget.model!.quantity.toString() ,
+         productId:  widget.model!.productId,
+         price: widget.model!.price,
+         productName: widget.model!.name,
+         productUnit:widget.model!.unit ,
+         imageUrl: Strings.productImageDirectoryUrl+widget.model!.imageUrl!,
+      ) ));
     }, () async {
       Get.back();
       await widget.ecomerceController!.addOrUpdateDeleteProduct(

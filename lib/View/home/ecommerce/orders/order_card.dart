@@ -18,7 +18,7 @@ class OrderCard extends StatelessWidget {
     _loadingTotal();
     return  Container(
       margin:const EdgeInsets.symmetric(vertical: 8.0,horizontal: 8.0),
-      decoration: BoxDecoration(color: Colors.blue,borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.grey),),
+          decoration: customDecoration(context),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

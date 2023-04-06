@@ -5,6 +5,7 @@ import '../../Controller/data/theme_controller.dart';
 import '../../Controller/data/user_controller.dart';
 import '../help_page/help_page.dart';
 import '../home/home_files/home_page.dart';
+import '../home/middleman/user_operations.dart';
 import '../profile/profile_page.dart';
 import '../rate_page/rate_page.dart';
 import '../setting/setting_page.dart';
@@ -91,7 +92,7 @@ class _CustomDrawerTileState extends State<CustomDrawerTile> {
     } else if (widget.text == "تسجيل الخروج") {
       logOut();
     } else if (widget.text == "الرئيسية") {
-      Get.offAll(const HomePage());
+      Get.offAll(HomePage(middleManAddOrUpdate: UserOperations(),));
     } else if (widget.text == "تحديث البيانات") {
       Get.to(() => ProfilePage());
     } else if (widget.text == "سياسة الخصوصية") {

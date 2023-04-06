@@ -19,6 +19,7 @@ class MainOperation {
         };
       }
     } catch (ex) {
+      print(ex);
       return {"status": 0, "message": "try and catch error $ex"};
     }
   }

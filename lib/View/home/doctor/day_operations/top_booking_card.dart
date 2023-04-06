@@ -7,6 +7,7 @@ import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_alert_dialog.dart';
 import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
+import '../../../widgets/helper_methods.dart';
 import '../doctor_constant.dart';
 
 // ignore: must_be_immutable
@@ -43,7 +44,7 @@ class TopBookingCard extends StatelessWidget {
 
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: number == 1 ? _firstCardWidget(context) : _secondCardWidget());
+        child: number == 1 ? _firstCardWidget(context) : _secondCardWidget(context));
   }
 
   Padding columnData() {
@@ -185,7 +186,6 @@ class TopBookingCard extends StatelessWidget {
   Material _firstCardWidget(BuildContext context) {
     return Material(
         elevation: 2,
-        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -248,27 +248,27 @@ class TopBookingCard extends StatelessWidget {
     );
   }
 
-  Material _secondCardWidget() {
+  Material _secondCardWidget(BuildContext context) {
     return Material(
         elevation: 2,
-        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         child: Column(
           children: [
             _topRowWidget(),
             columnData(),
-            _nextButtonWidget(),
+            _nextButtonWidget(context),
             _enteringClinicRoomWidget()
           ],
         ));
   }
 
-  Padding _nextButtonWidget() {
+  Padding _nextButtonWidget(BuildContext context) {
+    TextStyle style = TextStyle(color: Helper.isDarkMode(context)?Colors.white:Colors.black);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Wrap(alignment: WrapAlignment.center, children: [
-        const Text("إذا كان المريض غير موجود إضغط ",
-            style: TextStyle(color: Colors.black)),
+         Text("إذا كان المريض غير موجود إضغط ",
+            style:style),
         GestureDetector(
           child: const Text(" التالي ",
               style: TextStyle(
@@ -292,7 +292,7 @@ class TopBookingCard extends StatelessWidget {
             }
           },
         ),
-        const Text(" أو اضغط ", style: TextStyle(color: Colors.black)),
+         Text(" أو اضغط ", style:style),
         GestureDetector(
           child: const Text(" السابق ",
               style: TextStyle(
@@ -314,8 +314,8 @@ class TopBookingCard extends StatelessWidget {
             }
           },
         ),
-        const Text("للشخص الذي اتي متاخر عن دوره",
-            style: TextStyle(color: Colors.black))
+         Text("للشخص الذي اتي متاخر عن دوره",
+            style: style)
       ]),
     );
   }

@@ -2,20 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:middleman_all/View/home/home_files/home_page.dart';
 import 'package:middleman_all/View/home/middleman/place_view/places_page.dart';
 import 'middleman_dashboard.dart';
-import 'user_operations.dart';
 
-class Middleman extends StatefulWidget {
-  const Middleman({Key? key}) : super(key: key);
-
-  @override
-  State<Middleman> createState() => _MiddlemanState();
-}
-
-class _MiddlemanState extends State<Middleman> {
+class Middleman extends StatelessWidget {
+  // ignore: prefer_const_constructors_in_immutables
+  Middleman({Key? key,this.addOrUpdateWidget}) : super(key: key);
+  final Widget? addOrUpdateWidget;
   @override
   Widget build(BuildContext context) {
     return currentIndex == 2
-        ? const UserOperations()
+        ? addOrUpdateWidget!
         : currentIndex == 0
             ? MiddlemanDashboard()
             : PlacesPage();

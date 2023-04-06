@@ -10,6 +10,8 @@ import 'package:middleman_all/View/home/home_files/home_page.dart';
 import 'package:middleman_all/Models/users/user_model.dart';
 import 'package:middleman_all/View/profile/profile_constant.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
+import '../../View/home/ecommerce/operation_view/ecommerce_operations.dart';
+import '../../View/home/middleman/user_operations.dart';
 import '../../View/utilities/strings.dart';
 
 class UserController extends GetxController {
@@ -86,7 +88,11 @@ class UserController extends GetxController {
       prefs.write("log_in", "splach");
 
       Strings.userInformation = UserModel.fromSnapshot(resultMap["data"]).obs;
-      Get.offAll(() => const HomePage());
+      Widget myWidget = Strings.userInformation!.value.userType == "ecommerce"
+          ? EcommerceOperations()
+          : UserOperations();
+          
+      Get.offAll(() => HomePage(middleManAddOrUpdate: myWidget));
       Get.snackbar("", "تم تسجيل الدخول بنجاح");
 
       phoneOperations(type: "load", phoneId: "", number: "");

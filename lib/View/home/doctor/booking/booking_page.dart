@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:middleman_all/Controller/data/doctor_controller.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 import 'package:middleman_all/View/widgets/custom_text.dart';
+import '../../../widgets/helper_methods.dart';
 import 'booking_card.dart';
 
 class BookingPage extends StatefulWidget {
@@ -160,7 +161,7 @@ class _BookingPageState extends State<BookingPage> {
         padding: const EdgeInsets.all(8.0),
         child: Material(
           elevation: 2,
-          color: Colors.white,
+          color:Helper.isDarkMode(context)?Get.theme.cardColor:Colors.white ,
           shape: const StadiumBorder(),
           child: TextField(
             onTap: () => _showDatePacker(),

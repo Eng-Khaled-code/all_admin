@@ -17,7 +17,7 @@ class DiscountCard extends StatelessWidget {
 
     return  Container(
           margin:const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.white),
+          decoration: customDecoration(context), 
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

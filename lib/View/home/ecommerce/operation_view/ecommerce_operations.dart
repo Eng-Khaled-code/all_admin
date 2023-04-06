@@ -8,18 +8,28 @@ import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_selection_list.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
 
+// ignore: must_be_immutable
 class EcommerceOperations extends StatefulWidget {
-  const EcommerceOperations({
-    Key? key,
-  }) : super(key: key);
-  static String? addOrUpdate = "إضافة";
-  static int? productId = 0;
-  static String? productName = "";
-  static String? productDescription = "";
-  static String? productUnit = "";
-  static String? price = "";
-  static String? quantity = "";
-  static String? imageUrl = "";
+  EcommerceOperations(
+      {Key? key,
+      this.addOrUpdate = "إضافة",
+      this.productId = 0,
+      this.productName = "",
+      this.productDescription = "",
+      this.productUnit = "",
+      this.price = "",
+      this.imageUrl = "",
+      this.quantity = ""})
+      : super(key: key);
+  String? addOrUpdate;
+  int? productId;
+  String? productName;
+  String? productDescription;
+  String? productUnit;
+  String? price;
+  String? quantity;
+  String? imageUrl;
+
   @override
   State<EcommerceOperations> createState() => _EcommerceOperationsState();
 }
@@ -29,27 +39,8 @@ class _EcommerceOperationsState extends State<EcommerceOperations> {
   final EcommerceController ecommerceController = Get.find();
 
   @override
-  void dispose() {
-    ProductImageState.imageFile = null;
-    ProductImageState.imagePath = "";
-    EcommerceOperations.productId = 0;
-    EcommerceOperations.productName = "";
-    EcommerceOperations.productDescription = "";
-    EcommerceOperations.productUnit = "";
-    EcommerceOperations.price = "";
-    EcommerceOperations.quantity = "";
-    EcommerceOperations.imageUrl = "";
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    ProductImageState.imagePath = EcommerceOperations.imageUrl;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    ProductImageState.imagePath = widget.imageUrl;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Obx(
@@ -74,59 +65,58 @@ class _EcommerceOperationsState extends State<EcommerceOperations> {
                         child: Column(
                           children: [
                             CustomTextField(
-                              initialValue: EcommerceOperations.productName,
+                              initialValue: widget.productName,
                               lable: "اسم المنتج",
                               onSave: (value) {
-                                EcommerceOperations.productName = value;
+                                widget.productName = value;
                               },
                             ),
                             const SizedBox(height: 15.0),
                             CustomTextField(
-                              initialValue: EcommerceOperations.quantity,
+                              initialValue: widget.quantity,
                               lable: "الكمية",
                               onSave: (value) {
-                                EcommerceOperations.quantity = value;
+                                widget.quantity = value;
                               },
                             ),
                             const SizedBox(height: 15.0),
                             CustomTextField(
-                              initialValue: EcommerceOperations.productUnit,
+                              initialValue: widget.productUnit,
                               lable: "الوحدة",
                               onSave: (value) {
-                                EcommerceOperations.productUnit = value;
+                                widget.productUnit = value;
                               },
                             ),
                             const SizedBox(height: 15.0),
                             CustomTextField(
-                              initialValue: EcommerceOperations.price,
+                              initialValue: widget.price,
                               lable: "السعر",
                               onSave: (value) {
-                                EcommerceOperations.price = value;
+                                widget.price = value;
                               },
                             ),
                             const SizedBox(height: 15.0),
                             CustomTextField(
                               initialValue:
-                                  EcommerceOperations.productDescription,
+                                  widget.productDescription,
                               lable: "تفاصيل اكثر",
                               onSave: (value) {
-                                EcommerceOperations.productDescription = value;
+                                widget.productDescription = value;
                               },
                             ),
                             const SizedBox(height: 25.0),
                             CustomButton(
                                 color: const [
                                   primaryColor,
-                                  Color(0xFF0D47A1),
-                                ],
-                                text: EcommerceOperations.addOrUpdate,
+                                  Color(0xFF0D47A1)  ],
+                                text: widget.addOrUpdate,
                                 onPress: () {
                                   _formKey.currentState!.save();
                                   bool imageCondation =
                                       (ProductImageState.imageFile == null &&
-                                              EcommerceOperations.addOrUpdate ==
+                                              widget.addOrUpdate ==
                                                   "إضافة") ||
-                                          (EcommerceOperations.addOrUpdate ==
+                                          (widget.addOrUpdate ==
                                                   "تعديل" &&
                                               (ProductImageState.imageFile ==
                                                       null ||
@@ -140,7 +130,7 @@ class _EcommerceOperationsState extends State<EcommerceOperations> {
                                     ecommerceController
                                         .addOrUpdateDeleteProduct(
                                             addOrUpdateOrDelete:
-                                                EcommerceOperations
+                                                widget
                                                             .addOrUpdate ==
                                                         "إضافة"
                                                     ? "add"
@@ -149,18 +139,18 @@ class _EcommerceOperationsState extends State<EcommerceOperations> {
                                             imageFile:
                                                 ProductImageState.imageFile,
                                             imageUrl:
-                                                EcommerceOperations.imageUrl,
-                                            moreDetails: EcommerceOperations
+                                                widget.imageUrl,
+                                            moreDetails: widget
                                                 .productDescription,
                                             name:
-                                                EcommerceOperations.productName,
+                                                widget.productName,
                                             quantity:
-                                                EcommerceOperations.quantity,
+                                                widget.quantity,
                                             unit:
-                                                EcommerceOperations.productUnit,
-                                            price: EcommerceOperations.price,
+                                                widget.productUnit,
+                                            price: widget.price,
                                             productId:
-                                                EcommerceOperations.productId);
+                                                widget.productId);
                                   }
                                 },
                                 textColor: Colors.white),

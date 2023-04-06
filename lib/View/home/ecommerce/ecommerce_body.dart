@@ -9,12 +9,13 @@ import 'orders/orders_page.dart';
 import 'products_page/products_page.dart';
 
 class Ecommerce extends StatelessWidget {
-  Ecommerce({Key? key}) : super(key: key);
+  Ecommerce({Key? key,this.addOrUpdateWidget}) : super(key: key);
+  final Widget? addOrUpdateWidget;
 
   @override
   Widget build(BuildContext context) {
     return currentIndex == 2
-        ? const EcommerceOperations()
+        ?  addOrUpdateWidget!
         : currentIndex == 1
             ? const ProductPage()
             : currentIndex == 4

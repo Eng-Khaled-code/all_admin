@@ -8,6 +8,8 @@ import 'package:middleman_all/View/widgets/constant2.dart';
 import 'package:middleman_all/View/widgets/custom_button.dart';
 import 'package:middleman_all/View/widgets/custom_textfield.dart';
 
+import '../../../widgets/helper_methods.dart';
+
 class AddBook extends StatefulWidget {
   const AddBook({Key? key}) : super(key: key);
 
@@ -31,7 +33,8 @@ class _AddBookState extends State<AddBook> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Helper.isDarkMode(context) ? Colors.black : Colors.white,
         appBar: customAppbar(title: "إضافة كتاب جديد", actions: Container()),
         body: Obx(
           () => Padding(

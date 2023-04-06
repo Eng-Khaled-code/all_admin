@@ -11,7 +11,7 @@ import 'package:middleman_all/View/widgets/custom_text.dart';
 import '../user_operations.dart';
 
 // ignore: must_be_immutable
-class PlaceCard extends StatefulWidget {
+class PlaceCard extends StatelessWidget {
   final PlaceModel? model;
   final String? type;
   late MiddlemanController? middlemanController;
@@ -24,31 +24,25 @@ class PlaceCard extends StatefulWidget {
       this.middlemanController})
       : super(key: key);
 
-  @override
-  State<PlaceCard> createState() => _PlaceCardState();
-}
-
-class _PlaceCardState extends State<PlaceCard> {
   String? roufNum, myType;
 
   @override
   Widget build(BuildContext context) {
-    roufNum = widget.model!.type == "flat"
+    roufNum = model!.type == "flat"
         ? "رقم الطابق : "
-        : widget.model!.type == "block"
+        : model!.type == "block"
             ? "عدد الطوابق"
             : "";
-    myType = widget.model!.type == "flat"
-        ? "شقة "
-        : widget.model!.type == "block"
-            ? "عمارة "
-            : widget.model!.type == "ground"
+    myType = model!.type == "flat"
+        ? "شقة"
+        : model!.type == "block"
+            ? "عمارة"
+            : model!.type == "ground"
                 ? "قطعة ارض"
-                : "محل ";
+                : "محل";
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      decoration: customDecoration(context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [_topRow(), _stopWidget(), _dataWidget(), _bottomRow()],
@@ -60,21 +54,21 @@ class _PlaceCardState extends State<PlaceCard> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: widget.type == "user"
+        children: type == "user"
             ? [
                 coloredContainer(text: myType),
                 Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: customDateWidget(date: widget.model!.date)),
+                    child: customDateWidget(date: model!.date)),
                 _operationRow(),
               ]
             : [
                 adminProfileWidget(
-                  name: widget.model!.adminName,
-                  image: widget.model!.adminImage,
+                  name: model!.adminName,
+                  image: model!.adminImage,
                   opertionType:
-                      "${widget.model!.operation} ${widget.model!.type == "flat" ? "شقة" : widget.model!.type == "ground" ? "قطعة ارض" : widget.model!.type == "block" ? "عمارة" : "محل"}",
-                  date: widget.model!.date,
+                      "${model!.operation} ${model!.type == "flat" ? "شقة" : model!.type == "ground" ? "قطعة ارض" : model!.type == "block" ? "عمارة" : "محل"}",
+                  date: model!.date,
                 ),
                 _placeAdminStatus()
               ]);
@@ -82,10 +76,10 @@ class _PlaceCardState extends State<PlaceCard> {
 
   Widget _placeAdminStatus() {
     return IconButton(
-        onPressed: () => widget.model!.mainAdminStatus == 1
+        onPressed: () => model!.mainAdminStatus == 1
             ? _showReasonDialog()
             : _showAcceptDialog(),
-        icon: Icon(widget.model!.mainAdminStatus == 0
+        icon: Icon(model!.mainAdminStatus == 0
             ? Icons.visibility_off
             : Icons.visibility));
   }
@@ -94,14 +88,14 @@ class _PlaceCardState extends State<PlaceCard> {
     showReasonDialog(
         title: "هل تريد إيقاف عرض هذا العقار",
         onPress: (comingReason) async {
-          Navigator.pop(context);
-          await widget.adminController!.operations(
-            id: widget.model!.placeId,
+          Get.back();
+          await adminController!.operations(
+            id: model!.placeId,
             operationType: "change status",
             moduleName: "middleman",
             userStatusOrClinicStatus: "0",
             passwordOrStopReason: comingReason,
-            emailOrAdminToken: widget.model!.adminToken,
+            emailOrAdminToken: model!.adminToken,
           );
         });
   }
@@ -111,14 +105,14 @@ class _PlaceCardState extends State<PlaceCard> {
         contentText: "هل تريد إعادة عرض هذا العقار",
         title: "تأكيد",
         onPress: () async {
-          Navigator.pop(context);
-          await widget.adminController!.operations(
-            id: widget.model!.placeId,
+          Get.back();
+          await adminController!.operations(
+            id: model!.placeId,
             operationType: "change status",
             passwordOrStopReason: "",
             moduleName: "middleman",
             userStatusOrClinicStatus: "1",
-            emailOrAdminToken: widget.model!.adminToken,
+            emailOrAdminToken: model!.adminToken,
           );
         });
   }
@@ -126,31 +120,32 @@ class _PlaceCardState extends State<PlaceCard> {
   Widget _operationRow() {
     return operationRow(() {
       currentIndex = 2;
+      Get.offAll(() => HomePage(middleManAddOrUpdate: UserOperations(
+        txtAddress:model!.address ,
+         operationId:  model!.placeId,
+         selectedMiddlemanType: myType!,
+         selectedOperation:model!.operation! ,
+         txtPrice: model!.metrePrice.toString(),
+         txtArea: model!.size,
+         txtMoreDetails: model!.moreDetails,
+         txtRoufNum: model!.roufNum.toString(),
+         addOrUpdate: "تعديل",
+      ) ));
 
-      UserOperations.addOrUpdate = "تعديل";
-      selectedOperation = widget.model!.operation!;
-      selectedMiddlemanType = myType!;
-      UserOperations.operationId = widget.model!.placeId;
-      UserOperations.txtAddress = widget.model!.address;
-      UserOperations.txtArea = widget.model!.size;
-      UserOperations.txtMoreDetails = widget.model!.moreDetails;
-      UserOperations.txtPrice = widget.model!.metrePrice;
-      UserOperations.txtRoufNum = widget.model!.roufNum.toString();
-      setState(() {});
     }, () async {
       Get.back();
-      await widget.middlemanController!.addOrUpdateDeleteOperation(
-          opeId: widget.model!.placeId,
+      await middlemanController!.addOrUpdateDeleteOperation(
+          opeId: model!.placeId,
           roufNum: "0",
           addOrUpdate: "delete",
           operation: "no",
           moreDetails: "no",
           address: "d",
           adminId: 0,
-          type: widget.model!.type,
+          type: model!.type,
           metrePrice: "d",
           size: "d");
-    }, widget.model!.status == 0 ? true : false);
+    }, model!.status == 0 ? true : false);
   }
 
   Padding _dataWidget() {
@@ -160,38 +155,38 @@ class _PlaceCardState extends State<PlaceCard> {
         children: [
           CustomText(
             text:
-                "الإجمالي \$  ${double.tryParse(widget.model!.totalPrice!)!.toStringAsFixed(3)}",
+                "الإجمالي \$  ${double.tryParse(model!.totalPrice!)!.toStringAsFixed(3)}",
             fontSize: 26,
             fontWeight: FontWeight.bold,
           ),
           const SizedBox(height: 10),
           CustomText(
             text: myType! +
-                (widget.model!.type == "flat" || widget.model!.type == "block"
-                    ? roufNum! + "${widget.model!.roufNum}"
+                (model!.type == "flat" || model!.type == "block"
+                    ? roufNum! + "${model!.roufNum}"
                     : "") +
-                " || المساحة : ${widget.model!.size}  ||  " +
-                "سعر المتر :  ${widget.model!.metrePrice}",
+                " || المساحة : ${model!.size}  ||  " +
+                "سعر المتر :  ${model!.metrePrice}",
             color: Colors.grey,
             alignment: Alignment.centerRight,
             textAlign: TextAlign.right,
           ),
           CustomText(
-              text: "العنوان :  ${widget.model!.address}",
+              text: "العنوان :  ${model!.address}",
               color: Colors.grey,
               maxLine: 2,
               alignment: Alignment.centerRight,
               textAlign: TextAlign.right),
           CustomText(
-            text: "تفاصيل اكثر : ${widget.model!.moreDetails}",
+            text: "تفاصيل اكثر : ${model!.moreDetails}",
             color: Colors.grey,
             alignment: Alignment.centerRight,
             maxLine: 3,
             textAlign: TextAlign.right,
           ),
-          widget.type == "user"
+          type == "user"
               ? CustomText(
-                  text: widget.model!.status == 0
+                  text: model!.status == 0
                       ? "اشخاص يتم التفاوض معهم"
                       : "تفاصيل المشتري",
                   color: Colors.grey,
@@ -199,14 +194,14 @@ class _PlaceCardState extends State<PlaceCard> {
                 )
               : Container(),
           const SizedBox(height: 10),
-          widget.type == "user" ? _discussWidget() : Container()
+          type == "user" ? _discussWidget() : Container()
         ],
       ),
     );
   }
 
   Widget _discussWidget() {
-    return widget.model!.status == 0 && widget.model!.discussUserList!.isEmpty
+    return model!.status == 0 && model!.discussUserList!.isEmpty
         ? const CustomText(
             text: "لا يوجد مشتري حتي الان",
             color: Colors.grey,
@@ -220,21 +215,21 @@ class _PlaceCardState extends State<PlaceCard> {
       height: 110,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: widget.model!.discussUserList!.length,
+          itemCount: model!.discussUserList!.length,
           itemBuilder: (context, position) {
             DiscussModel discussModel = DiscussModel.fromSnapshot(
-                widget.model!.discussUserList![position]);
+                model!.discussUserList![position]);
             return GestureDetector(
               onTap: () {
-                if (widget.model!.status == 0) {
+                if (model!.status == 0) {
                   showDialogFor(
                       contentText:
                           "هل تم التوصل لإتفاق مع ${discussModel.userName} بالفعل",
                       title: "موافقة",
                       onPress: () async {
                         Get.back();
-                        await widget.middlemanController!.addBuyer(
-                            opeId: widget.model!.placeId,
+                        await middlemanController!.addBuyer(
+                            opeId: model!.placeId,
                             buyerId: discussModel.userId);
                       });
                 }
@@ -242,7 +237,7 @@ class _PlaceCardState extends State<PlaceCard> {
               child: Container(
                 padding: const EdgeInsets.all(5),
                 margin: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
-                width: widget.model!.status == 1 ? 320 : 250,
+                width: model!.status == 1 ? 320 : 250,
                 decoration: BoxDecoration(
                     color: primaryColor,
                     borderRadius: BorderRadius.circular(10)),
@@ -273,9 +268,9 @@ class _PlaceCardState extends State<PlaceCard> {
   }
 
   Widget _stopWidget() {
-    return widget.type == "user" && widget.model!.mainAdminStatus == 0
+    return type == "user" && model!.mainAdminStatus == 0
         ? CustomText(
-            text: "تم إيقاف العرض لان " + widget.model!.stopReason!,
+            text: "تم إيقاف العرض لان " + model!.stopReason!,
             color: Colors.red,
           )
         : Container();
@@ -289,14 +284,14 @@ class _PlaceCardState extends State<PlaceCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             likeWidget(
-                counter: "${widget.model!.likeCount}",
+                counter: "${model!.likeCount}",
                 icon: Icons.favorite,
                 iconColor: Colors.pink),
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 height: 30,
                 child: CustomText(
-                  text: "     ${widget.model!.operation}",
+                  text: "     ${model!.operation}",
                   color: Colors.grey,
                 )),
             Container(
@@ -305,14 +300,14 @@ class _PlaceCardState extends State<PlaceCard> {
               child: Row(
                 children: [
                   CustomText(
-                    text: widget.model!.status == 0
+                    text: model!.status == 0
                         ? "معروض الان"
-                        : "تم ال${widget.model!.operation}",
+                        : "تم ال${model!.operation}",
                     color: Colors.grey,
                   ),
                   const SizedBox(width: 10),
-                  Icon(widget.model!.status == 0 ? Icons.more : Icons.check,
-                      color: widget.model!.status == 0
+                  Icon(model!.status == 0 ? Icons.more : Icons.check,
+                      color: model!.status == 0
                           ? primaryColor
                           : Colors.green),
                 ],

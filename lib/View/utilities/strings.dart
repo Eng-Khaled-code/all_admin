@@ -11,6 +11,9 @@ class Strings {
       appRootUrl + "courses/courses_images/";
   static const coursesVideosDirectoryUrl = appRootUrl + "courses/videos/";
   static const userImagesDirectoryUrl = appRootUrl + "auth/images/";
+  static const bookImageDirectoryUrl = appRootUrl + "read_books/images/";
+  static const productImageDirectoryUrl = appRootUrl + "ecommerce/images/";
+
   static const List<String> userTypesList = [
     "مسئول",
     "عقارات",

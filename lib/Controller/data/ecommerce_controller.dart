@@ -9,6 +9,7 @@ import 'package:middleman_all/Models/ecommerce/product_model.dart';
 import 'package:middleman_all/Services/main_operations.dart';
 import 'package:middleman_all/View/home/home_files/home_page.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
+import '../../View/home/ecommerce/operation_view/ecommerce_operations.dart';
 import '../../View/utilities/strings.dart';
 
 class EcommerceController extends GetxController {
@@ -132,6 +133,7 @@ class EcommerceController extends GetxController {
       await loadDiscountsAndCategoryAndProductsList("load");
 
       currentIndex=1;
+      Get.offAll(() => HomePage(middleManAddOrUpdate: EcommerceOperations() ));
 
     Get.snackbar("نجاح",addOrUpdateOrDelete=="add"?"تمت الإضافة بنجاح":addOrUpdateOrDelete=="update"?"تم التعديل بنجاح":"تم الحذف بنجاح");
 

@@ -26,7 +26,7 @@ class BottomBookingCard extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: Container(
         width: MediaQuery.of(context).size.width * .5,
-        decoration: _cardDecoration(),
+        decoration: customDecoration(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,12 +45,6 @@ class BottomBookingCard extends StatelessWidget {
     );
   }
 
-  BoxDecoration _cardDecoration() {
-    return BoxDecoration(
-        border: Border.all(color: Colors.blue),
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(12.0));
-  }
 
   Row _topRow() {
     return Row(

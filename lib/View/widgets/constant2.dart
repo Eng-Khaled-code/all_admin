@@ -8,30 +8,37 @@ import 'constant.dart';
 import 'custom_text.dart';
 
 Row operationRow(
-    Function() onPressUpdate, Function() onPressDelete, bool showUpdate) {
+    Function() onPressUpdate, Function() onPressDelete, bool showUpdate,
+    {Color? myColor=primaryColor }) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      showUpdate ? _updateWidget(onPressUpdate) : Container(),
-      _deleteWidget(onPressDelete)
+      showUpdate ? _updateWidget(onPressUpdate,myColor!) : Container(),
+      _deleteWidget(onPressDelete,myColor!)
     ],
   );
 }
 
-IconButton _updateWidget(Function() onPressUpdate) {
+IconButton _updateWidget(Function() onPressUpdate, Color myColor) {
   return IconButton(
     onPressed: onPressUpdate,
-    icon: const Icon(Icons.edit, color: primaryColor),
+    icon: Icon(
+      Icons.edit,
+      color: myColor,
+    ),
   );
 }
 
-IconButton _deleteWidget(Function() onPressDelete) {
+IconButton _deleteWidget(Function() onPressDelete, Color myColor) {
   return IconButton(
     onPressed: () => showDialogFor(
         contentText: "هل تريد الحذف بالفعل",
         title: "حذف",
         onPress: onPressDelete),
-    icon: const Icon(Icons.delete, color: primaryColor),
+    icon: Icon(
+      Icons.delete,
+      color: myColor,
+    ),
   );
 }
 
@@ -51,8 +58,8 @@ Container phonesWidget(
             ? showDialogFor(
                 contentText: adminName + "\n${phones[position]}",
                 title: "اتصال",
-                onPress: () async =>
-                    await launchUrl(Uri(scheme: "tel://" + phones[position])))
+                onPress: () async => await launchUrl(
+                    Uri(scheme: "tel", path: "tel://" + phones[position])))
             : () {},
         child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5),

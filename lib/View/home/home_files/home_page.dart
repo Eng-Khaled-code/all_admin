@@ -13,14 +13,16 @@ import 'package:middleman_all/View/widgets/custom_text.dart';
 import '../../drawer/drawer.dart';
 import '../../utilities/strings.dart';
 import '../ecommerce/discount/operation_dialog.dart';
+import '../ecommerce/operation_view/ecommerce_operations.dart';
 import 'app_modules_screens.dart';
 import 'nav_bar_lists.dart';
 
 int currentIndex = 0;
 
+// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  HomePage({Key? key, this.middleManAddOrUpdate}) : super(key: key);
+  Widget? middleManAddOrUpdate;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -44,7 +46,9 @@ class _HomePageState extends State<HomePage> {
               appBar: _appBar(),
               bottomNavigationBar: _navBar(),
               drawer: const MyDrawer(),
-              body: loadingAppBody(userType: _userType),
+              body: loadingAppBody(
+                  userType: _userType,
+                  middlemanAddOrUpdate: widget.middleManAddOrUpdate),
               floatingActionButton: _userType == "full_access"
                   ? _floatingActionButton()
                   : _userType == "course_admin" && currentIndex == 0
@@ -262,12 +266,18 @@ class _HomePageState extends State<HomePage> {
           currentIndex: currentIndex,
           onTap: (index) {
             currentIndex = index;
-            if (index == 2) {
-              UserOperations.addOrUpdate = "إضافة";
+            if (index == 2 ) {
+              widget.middleManAddOrUpdate = _userType == "middleman"
+              ?
+              UserOperations()
+              :
+              EcommerceOperations();
             }
             setTitle();
             setState(() {});
           },
+          selectedItemColor: primaryColor,
+          unselectedItemColor: Colors.grey,
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ));

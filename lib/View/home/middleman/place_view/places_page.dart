@@ -42,10 +42,11 @@ class PlacesPage extends StatelessWidget {
         ListView.builder(
         itemCount: itemCount,
     itemBuilder: (context,position){
+
           switch(currentIndex)
           {
             case 1:
-              return  PlaceCard(model:_middlemanController.flatList[position]);
+              return  PlaceCard(model:_middlemanController.flatList[position],middlemanController: _middlemanController);
             case 3:
               return _middlemanController.blockList.isEmpty?noDataCard(text:  "لا توجد عماير",icon: Icons.account_balance): PlaceCard(model:_middlemanController.blockList[position],middlemanController:_middlemanController ,);
             case 4:

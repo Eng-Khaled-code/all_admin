@@ -37,6 +37,7 @@ class DoctorController extends GetxController {
   void onInit() {
     super.onInit();
     getBookingsByDoctor("out");
+    
   }
 
   setFirstBookingIndex(int index) {

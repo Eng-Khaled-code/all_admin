@@ -249,39 +249,32 @@ class ProfilePage extends StatelessWidget {
       String? to,
       int? itemId,
       BuildContext? context}) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(10.0),
-        elevation: 1,
-        child: Container(
-          padding: const EdgeInsets.only(top: 8.0),
-          margin: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-              border: Border.all(color: primaryColor),
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomText(
-                text: day!,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-              CustomText(
-                text: "من " +
-                    from!.substring(0, 5) +
-                    "\n إلي " +
-                    to!.substring(0, 5),
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-              _operationRow(
-                  context: context, from: from, to: to, itemId: itemId)
-            ],
+    return Container(
+      padding: const EdgeInsets.only(top: 8.0),
+      margin: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomText(
+            text: day!,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Colors.white,
           ),
-        ),
+          CustomText(
+            text: "من " +
+                from!.substring(0, 5) +
+                "\n إلي " +
+                to!.substring(0, 5),
+            color: Colors.white,
+            fontSize: 14,
+          ),
+          _operationRow(
+              context: context, from: from, to: to, itemId: itemId)
+        ],
       ),
     );
   }
@@ -298,7 +291,7 @@ class ProfilePage extends StatelessWidget {
       Get.back();
       await _userController.workDaysOperations(
           type: "delete", dayId: itemId, startTime: "", endTime: "");
-    }, true);
+    }, true,myColor: Colors.white);
   }
 
   Widget _dataWidget(BuildContext context) {

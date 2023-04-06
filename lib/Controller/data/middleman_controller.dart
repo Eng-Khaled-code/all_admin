@@ -6,6 +6,7 @@ import 'package:middleman_all/Services/main_operations.dart';
 import 'package:middleman_all/View/home/home_files/home_page.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 
+import '../../View/home/middleman/user_operations.dart';
 import '../../View/utilities/strings.dart';
 class MiddlemanController extends GetxController {
 
@@ -112,6 +113,7 @@ class MiddlemanController extends GetxController {
 
     int _page=_selectedType=="flat"?1:_selectedType=="block"?3:4;
     currentIndex=_page;
+      Get.offAll(() => HomePage(middleManAddOrUpdate: UserOperations() ));
 
     Get.snackbar("نجاح",addOrUpdate=="add"?"تمت الإضافة بنجاح":addOrUpdate=="update"?"تم التعديل بنجاح":"تم الحذف بنجاح");
 

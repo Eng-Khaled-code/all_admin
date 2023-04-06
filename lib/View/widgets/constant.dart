@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utilities/strings.dart';
 import 'custom_text.dart';
+import 'helper_methods.dart';
 
 const Color primaryColor = Colors.blue;
 const Color primaryColorDark = Colors.black;
@@ -9,9 +10,10 @@ const Color primaryColorDark = Colors.black;
 String? selectedCategory;
 List categoriesList = [];
 
-BoxDecoration customDecoration() {
+BoxDecoration customDecoration(BuildContext context) {
   return BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: Colors.white);
+      borderRadius: BorderRadius.circular(10),
+      color: Helper.isDarkMode(context) ? Get.theme.cardColor : Colors.white);
 }
 
 String errorTranslation(String englishErrr) {

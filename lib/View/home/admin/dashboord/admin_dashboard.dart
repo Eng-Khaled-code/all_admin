@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:middleman_all/Controller/data/admin_controller.dart';
 import 'package:middleman_all/View/widgets/constant.dart';
 
-import '../../utilities/strings.dart';
-import 'dashboord/dashboard_list_widgets.dart';
+import '../../../utilities/strings.dart';
+import 'dashboard_list_widgets.dart';
 
 class AdminDashboard extends StatelessWidget {
   AdminDashboard({Key? key}) : super(key: key);
